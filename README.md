@@ -1,6 +1,10 @@
 # nicholaspretorius.github.io
 My GitHub Page
 
-This is my very-late-to-the-party attempt at getting going with GitHub and recording what I learn on a daily basis. This site will be a work in progress, so the approach I am taking for now is that doing is better than don't-ing (get it?). So this is it, bare bones. No JS, no CSS, no design. Yet. 
+This is my *very-late-to-the-party* attempt at getting going with GitHub, GitHub Pages and recording what I learn on a daily basis. This site will be a very lo-fi, work in progress. The approach I am taking for now is that [doing is better than donting]<https://www.youtube.com/watch?v=VJqr6LBFelI>. So this is it, bare bones. No JS, no CSS, no design. 
 
-Developed with the help of: Git, GitHub, VS Code.  
+Each TIL will be very brief, with relevant links if necessary. 
+
+Developed with the help of: Git, GitHub, VS Code. 
+
+Inspired by: <https://github.com/jbranchaud/til> 
