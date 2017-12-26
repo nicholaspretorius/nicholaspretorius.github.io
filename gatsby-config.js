@@ -19,5 +19,4 @@ module.exports = {
         `gatsby-plugin-styled-components`,
         `gatsby-transformer-remark`
     ],
-    pathPrefix: "/nicholaspretorius.github.io",
 }
