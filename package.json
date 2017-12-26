@@ -5,7 +5,8 @@
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
-    "serve": "gatsby serve"
+    "serve": "gatsby serve",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
   },
   "dependencies": {
     "gatsby": "^1.9.119",
@@ -16,5 +17,8 @@
     "gatsby-transformer-remark": "^1.7.24",
     "styled-components": "^2.2.4",
     "typography-theme-wordpress-2016": "^0.15.10"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
   }
 }
