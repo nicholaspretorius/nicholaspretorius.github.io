@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 26 Dec 2017 16:19:03 GMT</lastBuildDate><item><title><![CDATA[TIL 0019]]></title><description><![CDATA[Gatsby to GitHub Pages, Gatsby RSS and Angular.js npm i --save-dev gh-pages |  Link Add RSS to Gatsby |  Link Completed the Ultimate Angular…]]></description><link>https://nicholaspretorius.github.io/til0019/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0019/</guid><pubDate>Tue, 26 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Gatsby to GitHub Pages, Gatsby RSS and Angular.js&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 28 Dec 2017 18:38:33 GMT</lastBuildDate><item><title><![CDATA[TIL 0020]]></title><description><![CDATA[Terminal, Node.js Continued, Triangles, Yarn and TypeScript ps aux | To show processes running kill -9 processId | processId being the…]]></description><link>https://nicholaspretorius.github.io/til0020/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0020/</guid><pubDate>Thu, 28 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Terminal, Node.js Continued, Triangles, Yarn and TypeScript&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ps aux | To show processes running&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;kill -9 processId | processId being the number of the process you want to kill&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Node.js fs and querystring | &lt;a href=&quot;https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback&quot;&gt;Link&lt;/a&gt; and &lt;a href=&quot;https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options&quot;&gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Triangle exercise from &lt;a href=&quot;http://eloquentjavascript.net/02_program_structure.html#h_umoXp9u0e7&quot;&gt;Eloquent JavaScript&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;
+/* Triangle Exercise from Eloquent JavaScript 28/12/2017 (http://eloquentjavascript.net/02_program_structure.html#h_umoXp9u0e7) */
+function drawTriangle(limit, char) {
+    var string = &apos;&apos;;
+    for (var i = 1; i &lt; limit; i++) {
+        for (var j = 0; j &lt; i; j++){ // var j = i; j &lt; limit; j++ for inverted triangle
+            string += char;
+        }
+        string += &apos;\n&apos;
+        //string += &apos;!&apos;;
+    }
+    console.log(string);
+}
+
+drawTriangle(8, &apos;#&apos;);
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JS Types: String, Boolean, undefined, null, Object, Number, Symbol&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;AST = abstract syntax tree | &lt;a href=&quot;http://astexplorer.net/&quot;&gt;AST Explorer&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Hold CMD while hovering on a symbol in VS Code and it will display an overlay of the definition. CMD + Click will open the file at the definition. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CMD + D to select next occurrence of a word in VS Code. Shift + CMD + F is find and replace. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Right click &quot;Rename symbol&quot; or FN + F2 shortcut rename symbol&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;yarn global add typescript&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;yarn init -y | -y flag is to answer yes to all init options&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;yarn add -D typescript webpack webpack-dev-server&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;tsc --init | Creates a ts project for you in the folder&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;tsc -w | Runs tsc in watch mode&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Union types and type alias&lt;/p&gt;
+&lt;pre&gt;
+// Specify type alias with union types # or $
+type ValidSymbols = &apos;#&apos; | &apos;$&apos;
+const symbol = &apos;#&apos;
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0019]]></title><description><![CDATA[Gatsby to GitHub Pages, Gatsby RSS and Angular.js npm i --save-dev gh-pages |  Link Add RSS to Gatsby |  Link Completed the Ultimate Angular…]]></description><link>https://nicholaspretorius.github.io/til0019/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0019/</guid><pubDate>Tue, 26 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Gatsby to GitHub Pages, Gatsby RSS and Angular.js&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;npm i --save-dev gh-pages | &lt;a href=&quot;https://www.gatsbyjs.org/docs/how-gatsby-works-with-github-pages/&quot;&gt;Link&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Add RSS to Gatsby | &lt;a href=&quot;https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-feed&quot;&gt;Link&lt;/a&gt;&lt;/li&gt;
