@@ -1,4 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 28 Dec 2017 18:38:33 GMT</lastBuildDate><item><title><![CDATA[TIL 0020]]></title><description><![CDATA[Terminal, Node.js Continued, Triangles, Yarn and TypeScript ps aux | To show processes running kill -9 processId | processId being the…]]></description><link>https://nicholaspretorius.github.io/til0020/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0020/</guid><pubDate>Thu, 28 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Terminal, Node.js Continued, Triangles, Yarn and TypeScript&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 29 Dec 2017 16:45:33 GMT</lastBuildDate><item><title><![CDATA[TIL 0021]]></title><description><![CDATA[TypeScript Fundamentals and AngularJS Performance Completed the videos for Ultimate Angular Typscript Fundamentals and AngularJS Performance…]]></description><link>https://nicholaspretorius.github.io/til0021/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0021/</guid><pubDate>Fri, 29 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TypeScript Fundamentals and AngularJS Performance&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Completed the videos for Ultimate Angular Typscript Fundamentals and AngularJS Performance | &lt;a href=&quot;https://ultimateangular.com/courses/&quot;&gt;Link&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;ng-repeats through large data collections can be batched in order to increase performance. | &lt;a href=&quot;https://github.com/UltimateAngular/angular-1-performance-src/blob/master/08-ng-repeat-batching/js/components/todos.component.js#L42&quot;&gt;Link&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Using &apos;track by&apos; on ng-repeat is more performant as AngularJS does not need to attach its own keys at run-time&lt;/li&gt;
+&lt;li&gt;ng-if is more perfomant than ng-show/ng-hide as AngularJS does not need to set watchers on each instance. It destroys them when no longer required. &lt;/li&gt;
+&lt;li&gt;Use ng-model-options with debounce on input fields as it will reduce the number of digest cycles required. This also delays the evaluation so that you do not need to instantly display validation and can wait a little while. &lt;/li&gt;
+&lt;li&gt;When using AngularJS expressions, you can limit the evaluations required by AngularJS storing an evaluation in a value so that AngularJS does not need to evaluate the terms or function on each digest cycle. If the evaluation is only needed once, the bind-once syntax of :: can be used. &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;http calls can be batched if within +- 10 milliseconds of each by using &lt;/p&gt;
+&lt;pre&gt;
+angular
+.module(&apos;app&apos;, [])
+.config(function ($httpProvider) {
+	$httpProvider.useApplyAsync(true);
+});
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Strict Dependency Injection (Strict DI) can be used for minification for performance as follows: &lt;/p&gt;
+&lt;pre&gt;
+controller: [&apos;CounterService&apos;, function (CounterService) {
+this.$onInit = function () {
+  this.count = CounterService.getInitialCount();
+};
+this.increment = function () {
+  this.count = CounterService.incrementCount(this.count);
+};
+this.decrement = function () {
+  this.count = CounterService.decrementCount(this.count);
+};
+}]
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On production builds, there is no need for all the AngularJS specific .data that gets added at runtime. This can be turned off by doing: &lt;/p&gt;
+&lt;pre&gt;
+angular
+.module(&apos;app&apos;, [])
+.config(function($compileProvider) {
+	$compileProvider.debugInfoEnabled(false);
+})
+;
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;The $onDestroy lifecycle hook can be used on AngularJS ^1.5 to do garbage collection and remove data bindings, especially when using things like EventHandlers. This can save significantly on memory usage during the lifespan of the Single Page Application. &lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0020]]></title><description><![CDATA[Terminal, Node.js Continued, Triangles, Yarn and TypeScript ps aux | To show processes running kill -9 processId | processId being the…]]></description><link>https://nicholaspretorius.github.io/til0020/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0020/</guid><pubDate>Thu, 28 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Terminal, Node.js Continued, Triangles, Yarn and TypeScript&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;ps aux | To show processes running&lt;/p&gt;
