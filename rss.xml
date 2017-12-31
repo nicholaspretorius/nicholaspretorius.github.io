@@ -1,4 +1,183 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 29 Dec 2017 16:45:33 GMT</lastBuildDate><item><title><![CDATA[TIL 0021]]></title><description><![CDATA[TypeScript Fundamentals and AngularJS Performance Completed the videos for Ultimate Angular Typscript Fundamentals and AngularJS Performance…]]></description><link>https://nicholaspretorius.github.io/til0021/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0021/</guid><pubDate>Fri, 29 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TypeScript Fundamentals and AngularJS Performance&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 31 Dec 2017 09:04:46 GMT</lastBuildDate><item><title><![CDATA[TIL 0022]]></title><description><![CDATA[FizzBuzz and other exercises Exercise 2 from Eloquent JavaScript  Exercise 3 from Eloquent JavaScript Exercise 4 from Eloquent JavaScript…]]></description><link>https://nicholaspretorius.github.io/til0022/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0022/</guid><pubDate>Sat, 30 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;FizzBuzz and other exercises&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Exercise 2 from Eloquent JavaScript &lt;/p&gt;
+&lt;pre&gt;
+//Problem: Print out all numbers from 1 to 100. When divisible by 3 print Fizz, then divisible by 5 print Buzz, when divisible by both 3 and 5 print FizzBuzz
+// Solution: JS - Loop through all the numbers, check modulo 3, 5 and 3 and 5, print appropriate word
+
+function fizzBuzz(min, max) {
+    
+    function fizzOrBuzz (number, divisorA, divisorB) {
+        if (divisorB) {
+            return ((number % divisorA === 0) &amp;&amp; (number % divisorB === 0))  
+        } else {
+            return number % divisorA === 0
+        }
+    }
+    
+    for (var i = min; i &lt;= max; i++) {
+        if (fizzOrBuzz(i, 3, 5)) {
+            console.log(&apos;FizzBuzz (&apos;, i , &apos;)&apos;);
+        } else if (fizzOrBuzz(i, 3)) {
+            console.log(&apos;Fizz (&apos;, i, &apos;)&apos;);
+        } else if (fizzOrBuzz(i, 5)) {
+            console.log(&apos;Buzz (&apos;, i , &apos;)&apos;);
+        } else {
+            console.log(i);
+        }
+    }
+}
+
+fizzBuzz(1, 100);
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Exercise 3 from Eloquent JavaScript&lt;/p&gt;
+&lt;pre&gt;
+// Problem: Draw out a chessboard of 8*8 using the space and # characters, alternating the start character. 
+// Solution: JS - Use a loop to draw out the columns then at the end, alternate a boolean to start with one character or the other. 
+
+function chessBoard(spread) {
+    var blank = false;
+    var a = &apos; &apos;, b = &apos;#&apos;, row = &apos;&apos;;
+    
+    for (var c = 1; c &lt;= spread*spread; c++) {
+        if (c % spread === 0) {
+            row += &apos;\n&apos;
+        }
+        else if(blank) {
+            row += a;
+            blank = !blank;
+        } else {
+            row += b
+            blank = !blank;
+        }
+    }
+    console.log(row);
+}
+
+chessBoard(8);
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Exercise 4 from Eloquent JavaScript &lt;/p&gt;
+&lt;pre&gt;
+// Problem: Return the minimum number between two numbers
+// Solution: Accept two arguments and determime which is less
+
+function min(a, b) {
+    if (typeof(a) === &apos;number&apos; &amp;&amp; typeof(b) === &apos;number&apos;) {
+        var min = a &lt; b;
+        return min ? a : b
+    } else {
+        return NaN;
+    }   
+}
+
+console.log(min(3,-9));
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Exercise 5 from Eloquent JavaScript &lt;/p&gt;
+&lt;pre&gt;
+// Problem: Use recursion to determine whether a number is even, if even, return true
+// Solution: Create a function that returns true if number is 0, false if number is 1, else subtract 2 from the number
+
+function isEven(number){
+    if(number &lt; 0) {
+        number = number * -1;
+    }
+
+    if (number === 0) {
+        return true;
+    } else if (number === 1) {
+        return false;
+    } else {
+        number -= 2;
+        return isEven(number);
+    }
+}
+
+console.log(isEven(-34));
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Exercise 6 from Eloquent JavaScript &lt;/p&gt;
+&lt;pre&gt;
+// Problem: Create a function that counts how many times a provided letter appears in a string
+// Solution: Loop through the string using .charAt to determine whether the letter is a match
+function countChars(string, letter){
+    var count = 0;
+    for (var i = 0; i &lt; string.length; i++) {
+        if (string.charAt(i) === letter) {
+            count+=1;
+        }
+    }
+    return count;
+}
+
+console.log(countChars(&apos;chakkalakka&apos;, &apos;a&apos;));
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Calculate prime numbers in a range&lt;/p&gt;
+&lt;pre&gt;
+function getPrimes(min, max) {
+
+    function isPrimeBruteForce(number){
+        for (var i = 2; i &lt; (number - 1); i++) {
+            if (number % i === 0) {
+                return false;
+            }
+        }
+        return true
+    }
+
+    if (min &lt; max &amp;&amp; min &gt; 1 &amp;&amp; max &gt; 1) {
+        var primes = [];
+        
+        for (var i = min; i &lt; max; i++) {
+            if(isPrimeBruteForce(i)) {
+                primes.push(i);
+            }
+        }     
+        return primes;
+    } else {
+        return -1;
+    }
+}
+
+console.log(getPrimes(3, 100));
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Exercise 7 from Eloquent JavaScript&lt;/p&gt;
+&lt;pre&gt;
+function range(start, end, increment) {
+    var arr = [];
+    var inc = 1;
+    if (increment) {
+        inc = increment;
+    } 
+    for (var i = start; i &lt;= end; i+=inc) {
+        arr.push(i);
+    }
+    return arr;
+}
+
+function sum(array) {
+    var sum = 0;
+    for (var i = 0; i &lt; array.length; i++) {
+        sum = sum + array[i];
+    }
+    return sum;
+}
+
+console.log(sum(range(1,10, 2)));
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0021]]></title><description><![CDATA[TypeScript Fundamentals and AngularJS Performance Completed the videos for Ultimate Angular Typscript Fundamentals and AngularJS Performance…]]></description><link>https://nicholaspretorius.github.io/til0021/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0021/</guid><pubDate>Fri, 29 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TypeScript Fundamentals and AngularJS Performance&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Completed the videos for Ultimate Angular Typscript Fundamentals and AngularJS Performance | &lt;a href=&quot;https://ultimateangular.com/courses/&quot;&gt;Link&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;ng-repeats through large data collections can be batched in order to increase performance. | &lt;a href=&quot;https://github.com/UltimateAngular/angular-1-performance-src/blob/master/08-ng-repeat-batching/js/components/todos.component.js#L42&quot;&gt;Link&lt;/a&gt;&lt;/li&gt;
