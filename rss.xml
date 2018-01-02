@@ -1,4 +1,130 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 01 Jan 2018 18:23:26 GMT</lastBuildDate><item><title><![CDATA[TIL 0023]]></title><description><![CDATA[Eloquent JavaScript Chapter 3: Functions Recursion - Generally, recursion can be up to 10 times slower than looping. However, recursion can…]]></description><link>https://nicholaspretorius.github.io/til0023/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0023/</guid><pubDate>Mon, 01 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Eloquent JavaScript Chapter 3: Functions&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 02 Jan 2018 19:39:11 GMT</lastBuildDate><item><title><![CDATA[TIL 0024]]></title><description><![CDATA[PowerShell, Plain JS Post, Enabling CORS on Express and Express Body Parser Determine the version of PowerShell you are running…]]></description><link>https://nicholaspretorius.github.io/til0024/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0024/</guid><pubDate>Tue, 02 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;PowerShell, Plain JS Post, Enabling CORS on Express and Express Body Parser&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Determine the version of PowerShell you are running: $PSVersionTable.PSVersion&lt;/li&gt;
+&lt;li&gt;Determine the execution policy on PowerShell (this is necessary to determine whether you can ru PowerShell scripts): Get-ExecutionPolicy&lt;/li&gt;
+&lt;li&gt;Useful resource for setting up Invoke-RestMethod calls via PowerShell scripts | &lt;a href=&quot;https://www.jokecamp.com/blog/invoke-restmethod-powershell-examples/&quot;&gt;Link&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable CORS on an Express server | &lt;a href=&quot;https://enable-cors.org/server_expressjs.html&quot;&gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;
+app.use(function(req, res, next) {
+res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);
+res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;Origin, X-Requested-With, Content-Type, Accept&quot;);
+next();
+});
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;To use req.body inside of Express you need to load Body Parser | &lt;a href=&quot;https://stackoverflow.com/questions/10005939/how-do-i-consume-the-json-post-data-in-an-express-application/10007542#10007542&quot;&gt;Link&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;First install it: npm i body-parser&lt;/p&gt;
+&lt;pre&gt;
+var express = require(&apos;express);
+var bodyParser = require(&apos;body-parser&apos;);
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;var app = express();&lt;/p&gt;
+&lt;p&gt;app.use(bodyParser.json());&lt;/p&gt;
+&lt;p&gt;app.post(&apos;/&apos;, function(req, res) {
+console.log(req.body);
+})
+app.listen(8000);&lt;/p&gt;
+&lt;/pre&gt;
+* In package.json check: &quot;main&quot;: &quot;app.js&quot;, then you can just run: nodemon instead of: nodemon app.js
+* npm i pug --save
+* mkdir view &amp;&amp; cd_$
+* touch index.pug
+* Then:
+&lt;pre&gt;
+    app.set(&apos;view engine&apos;, &apos;pug&apos;);
+    ..
+    app.get(&apos;/&apos;, (req, res) =&gt; {
+        res.render(&apos;index&apos;, {title=&apos;Hello world!&apos;});
+    });
+&lt;/pre&gt;
+* Pug templating 101 (Assume we have var colors = [&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;])
+&lt;pre&gt;
+    doctype html
+    html(lang=&quot;en&quot;)
+        head
+            title= title
+        body
+            div.wrapper
+            .content
+            ul
+                each color in colors
+                   li color
+            p#main Hi!
+            #secondary
+            if hint 
+                p
+                    i Hint: #{hint}
+            else 
+                p (There is no hint)
+&lt;/pre&gt;
+* Pug locals
+&lt;pre&gt;
+    app.get(&apos;/cards&apos;, (req, res) =&gt; {
+        res.locals.prompt = &quot;What is your question?&quot;;
+        res.locals.hint = &quot;Think about something.&quot;; // interpolated from #{hint} above
+        res.render(&apos;card&apos;);
+        // res.render(&apos;card&apos;, {prompt: &apos;What is your...&apos;, hint: &apos;Think about...&apos;});
+    });
+&lt;/pre&gt;
+* Pug Partials &lt;br/&gt;
+In the layout.pug file (along with a: mkdir includes)
+&lt;pre&gt;
+...
+header 
+    include includes/header.pug
+...
+block content
+...
+    include includes/footer.pug
+&lt;/pre&gt;
+In the index.pug file: 
+&lt;pre&gt;
+extends layout.pug
+&lt;p&gt;block content
+section#wrapper
+h1 Hello world!&lt;/p&gt;
+&lt;/pre&gt;
+&lt;h3&gt;Eloquent JavaScript Chapter 4: Data Structures&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Almost all JavaScript values have properties except null and undefined.&lt;/li&gt;
+&lt;li&gt;value.prop prop must be a valid variable name and directly names the propery.&lt;/li&gt;
+&lt;li&gt;value[prop] prop is &lt;strong&gt;evaluated&lt;/strong&gt; to get the property name. &lt;/li&gt;
+&lt;li&gt;The elements of an array are stored in properties with numbers for their names. &lt;/li&gt;
+&lt;li&gt;Properties that contain functions are called methods. Examples are .toUppercase, .toLowerCase for strings. Array have pop(), push(), .join() amongst others. &lt;/li&gt;
+&lt;li&gt;You can delete an object property with: delete object.propertyName;&lt;/li&gt;
+&lt;li&gt;console.log(&quot;propertyName&quot; in object); // false&lt;/li&gt;
+&lt;li&gt;array.shift(); will return (and remove) the first item in the array, as opposed to .pop() which will return and remove the last item in the array. &lt;/li&gt;
+&lt;li&gt;Similarly .unshift() add an item to the beginning of an array and .push() adds an item to the end of an array. &lt;/li&gt;
+&lt;li&gt;indexOf(x) returns the index of the first instance of x in the array whereas lastIndexOf(x) returns the index of the last instance of x in the array. Both take an optional second argument to indicate where to start the search from. &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;.slice() takes two parameters, start(inclusive), end(exclusive) and returns an array of the items between start and end. If no second parameter is supplied, it takes all the items after the start.&lt;/p&gt;
+&lt;pre&gt;
+console.log([0, 1, 2, 3, 4].slice(2, 4));
+console.log([0, 1, 2, 3, 4].slice(2));
+&lt;/pre&gt; 
+&lt;/li&gt;
+&lt;li&gt;array1.concat(array2); will put two arrays into one and return the resulting array. &lt;/li&gt;
+&lt;li&gt;&quot;   somestring  \n&quot;.trim(); will remove all the whitespace (spaces, tabs, newlines) from the string&lt;/li&gt;
+&lt;li&gt;Strings, numbers and booleans are not objects and are &lt;strong&gt;immutable&lt;/strong&gt; which means you cannot add properties to them. &lt;/li&gt;
+&lt;li&gt;Whenever a function is called, a special variable names &apos;arguments&apos; is added to the environment in which the function body runs. arguments has a .length property. &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Math.random();&lt;/p&gt;
+&lt;pre&gt;
+console.log(Math.floor(Math.random()*10));
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;All global variables are stored in the global object, that is window.&lt;/p&gt;
+&lt;pre&gt;
+var myVar = 10;
+console.log(&quot;myVar&quot; in window);
+console.log(window.myVar);
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0023]]></title><description><![CDATA[Eloquent JavaScript Chapter 3: Functions Recursion - Generally, recursion can be up to 10 times slower than looping. However, recursion can…]]></description><link>https://nicholaspretorius.github.io/til0023/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0023/</guid><pubDate>Mon, 01 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Eloquent JavaScript Chapter 3: Functions&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Recursion - Generally, recursion can be up to 10 times slower than looping. However, recursion can be more elegant, as such, the programmer must determine whether efficiency or simplicity is more appropriate. &lt;/p&gt;
@@ -89,7 +215,21 @@ Team Treehouse&apos;s Fullstack JavaScript track | &lt;a href=&quot;https://team
 Tyler McGinnis&apos; React Courses (March) | &lt;a href=&quot;https://tylermcginnis.com/courses/&quot;&gt;Link&lt;/a&gt; &lt;br/&gt;&lt;/li&gt;
 &lt;li&gt;Take the knowledge and best practice learned (hopefully) from the above and ACTUALLY apply it. It is one thing to know something, it is quite another to do! &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Many people know they should eat healthier, exercise more, eat donuts less and so on. The reality is that we often do not &lt;strong&gt;live&lt;/strong&gt; the way we &lt;strong&gt;know&lt;/strong&gt; we should. In my case it is similar when it comes to coding. Sometimes the knowing goes out the window and I end up writing code that works, but might not be the best code I could write. Much like in life, most people cannot go from the couch to running a marathon in one day. Instead you need to build new habits, day by day, reshape and remove old ones and put one foot in front of the other until you get to the level you aspire to. &lt;/p&gt;</content:encoded></item><item><title><![CDATA[TIL 0022]]></title><description><![CDATA[FizzBuzz and other exercises Exercise 2 from Eloquent JavaScript  Exercise 3 from Eloquent JavaScript Exercise 4 from Eloquent JavaScript…]]></description><link>https://nicholaspretorius.github.io/til0022/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0022/</guid><pubDate>Sat, 30 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;FizzBuzz and other exercises&lt;/h3&gt;
+&lt;p&gt;Many people know they should eat healthier, exercise more, eat donuts less and so on. The reality is that we often do not &lt;strong&gt;live&lt;/strong&gt; the way we &lt;strong&gt;know&lt;/strong&gt; we should. In my case it is similar when it comes to coding. Sometimes the knowing goes out the window and I end up writing code that works, but might not be the best code I could write. Much like in life, most people cannot go from the couch to running a marathon in one day. Instead you need to build new habits, day by day, reshape and remove old ones and put one foot in front of the other until you get to the level you aspire to. &lt;/p&gt;
+&lt;h5&gt;Updates&lt;/h5&gt;
+&lt;h6&gt;02/01/2018&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;I read Chapter 4 of Eloquent JavaScript - my notes can be found here &lt;a href=&quot;/til0024&quot;&gt;Link&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;I did not review the MDN docs, however, I did spend quite a bit of time learning some Express basics. &lt;/li&gt;
+&lt;li&gt;I did not do a Feynman-like method review of the chapter, I will work on this | &lt;a href=&quot;https://mattyford.com/blog/2014/1/23/the-feynman-technique-model&quot;&gt;Link&lt;/a&gt;
+&lt;br/&gt;&lt;br/&gt;
+Essentially the goal is to: &lt;/li&gt;
+&lt;li&gt;Write the title of the topic on the top of the page&lt;/li&gt;
+&lt;li&gt;Summarise the concept in plain language using analogies where effective&lt;/li&gt;
+&lt;li&gt;Review what you don&apos;t understand to fill in the gaps&lt;/li&gt;
+&lt;li&gt;Simplify - pretend you are teaching it to someone else&lt;/li&gt;
+&lt;li&gt;I watched around an hours of code, but watched the &lt;a href=&quot;https://teamtreehouse.com/library/express-basics-2&quot;&gt;Treehouse Express Basics&lt;/a&gt; videos instead since it is very relevant to my current tasks at work. &lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0022]]></title><description><![CDATA[FizzBuzz and other exercises Exercise 2 from Eloquent JavaScript  Exercise 3 from Eloquent JavaScript Exercise 4 from Eloquent JavaScript…]]></description><link>https://nicholaspretorius.github.io/til0022/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0022/</guid><pubDate>Sat, 30 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;FizzBuzz and other exercises&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Exercise 2 from Eloquent JavaScript &lt;/p&gt;
