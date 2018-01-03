@@ -1,4 +1,44 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 02 Jan 2018 19:39:11 GMT</lastBuildDate><item><title><![CDATA[TIL 0024]]></title><description><![CDATA[PowerShell, Plain JS Post, Enabling CORS on Express and Express Body Parser Determine the version of PowerShell you are running…]]></description><link>https://nicholaspretorius.github.io/til0024/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0024/</guid><pubDate>Tue, 02 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;PowerShell, Plain JS Post, Enabling CORS on Express and Express Body Parser&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 03 Jan 2018 19:37:20 GMT</lastBuildDate><item><title><![CDATA[TIL 0025]]></title><description><![CDATA[Node.js, Nodemailer + Express Handlebars, Express + TypeScript Nodemailer-express-handlebars is a useful plugin for Nodemailer that allows…]]></description><link>https://nicholaspretorius.github.io/til0025/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0025/</guid><pubDate>Wed, 03 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Node.js, Nodemailer + Express Handlebars, Express + TypeScript&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Nodemailer-express-handlebars is a useful plugin for Nodemailer that allows you to use Handlebars templates in your HTML emails | &lt;a href=&quot;https://github.com/yads/nodemailer-express-handlebars&quot;&gt;Link&lt;/a&gt; &lt;br/&gt;
+The documentation on that page does not provide a full usage example and is really short on details. I then found this article which was incredibly helpful! | &lt;a href=&quot;http://excellencenodejsblog.com/express-nodemailer-sending-mails/&quot;&gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;
+...
+var hbs = require(&apos;nodemailer-express-handlebars&apos;);
+var options = {
+viewEngine : {
+    extname: &apos;.hbs&apos;, // handlebars extension
+    layoutsDir: &apos;views/email/&apos;, // location of handlebars templates
+    defaultLayout: &apos;template&apos;, // name of main template
+    partialsDir: &apos;views/email/&apos;, // location of your subtemplates aka. header, footer etc
+},
+viewPath: &apos;views/email&apos;,
+extName: &apos;.hbs&apos;
+};
+...
+mailer.use(&apos;compile&apos;, hbs(options));
+mailer.sendMail({
+from: &apos;test@test.com&apos;,
+to: req.body.to,
+subject: req.body.subject,
+template: &apos;template&apos;,
+context: {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    ...
+}
+}, function(error, response)...) 
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;Most of my day was then spent trying to figure out how best to put Node.js, Express and its dependencies into a working app via Webpack. I have not been very successful so far... My main issue at present is that when I run Webpack I get a lot of errors that say things like: Module not found: Error: Can&apos;t resolve &apos;./decode/&apos; etc &lt;br/&gt;
+I did however, find two articles which look promising and that I will be picking for clues:
+&lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;TypeScript, Express and Node.js | &lt;a href=&quot;http://brianflove.com/2016/11/08/typescript-2-express-node/&quot;&gt;Link&lt;/a&gt; &lt;br/&gt;
+This is a great article, however, he uses Grunt to build his TypeScript which is not quite what I am looking for. &lt;/li&gt;
+&lt;li&gt;TypeScript, ExpressJS API with Webpack | &lt;a href=&quot;https://medium.com/@Pierre_anthill/typescript-expressjs-api-with-webpack-4655126d884b&quot;&gt;Link&lt;/a&gt;&lt;br/&gt;
+Another great article that look to cover most of what I am looking for.&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0024]]></title><description><![CDATA[PowerShell, Plain JS Post, Enabling CORS on Express and Express Body Parser Determine the version of PowerShell you are running…]]></description><link>https://nicholaspretorius.github.io/til0024/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0024/</guid><pubDate>Tue, 02 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;PowerShell, Plain JS Post, Enabling CORS on Express and Express Body Parser&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Determine the version of PowerShell you are running: $PSVersionTable.PSVersion&lt;/li&gt;
 &lt;li&gt;Determine the execution policy on PowerShell (this is necessary to determine whether you can ru PowerShell scripts): Get-ExecutionPolicy&lt;/li&gt;
@@ -229,6 +269,12 @@ Essentially the goal is to: &lt;/li&gt;
 &lt;li&gt;Review what you don&apos;t understand to fill in the gaps&lt;/li&gt;
 &lt;li&gt;Simplify - pretend you are teaching it to someone else&lt;/li&gt;
 &lt;li&gt;I watched around an hours of code, but watched the &lt;a href=&quot;https://teamtreehouse.com/library/express-basics-2&quot;&gt;Treehouse Express Basics&lt;/a&gt; videos instead since it is very relevant to my current tasks at work. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;03/01/2018&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;Did not review MDN documents again... I think I need to do this for the first 15-30 minutes in the morning when I get in. Hopefully it will set the tone for the day. &lt;/li&gt;
+&lt;li&gt;No Feynman-like reviews either, I think I may need to remove this from the list as I am finding myself short of time. &lt;/li&gt;
+&lt;li&gt;I have not yet read Eloquent JavaScript today, pressure to learn Node.js, Express and other things means I am spending my time research these topics and continuing with the video courses. &lt;/li&gt;
 &lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0022]]></title><description><![CDATA[FizzBuzz and other exercises Exercise 2 from Eloquent JavaScript  Exercise 3 from Eloquent JavaScript Exercise 4 from Eloquent JavaScript…]]></description><link>https://nicholaspretorius.github.io/til0022/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0022/</guid><pubDate>Sat, 30 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;FizzBuzz and other exercises&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
