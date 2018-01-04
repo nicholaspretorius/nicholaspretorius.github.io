@@ -1,4 +1,107 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 03 Jan 2018 19:37:20 GMT</lastBuildDate><item><title><![CDATA[TIL 0025]]></title><description><![CDATA[Node.js, Nodemailer + Express Handlebars, Express + TypeScript Nodemailer-express-handlebars is a useful plugin for Nodemailer that allows…]]></description><link>https://nicholaspretorius.github.io/til0025/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0025/</guid><pubDate>Wed, 03 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Node.js, Nodemailer + Express Handlebars, Express + TypeScript&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 04 Jan 2018 18:08:04 GMT</lastBuildDate><item><title><![CDATA[TIL 0026]]></title><description><![CDATA[Express, Express, Express Add static resources to Node.js server Modularize your routes, for example, in /routes/index.js: Then in your main…]]></description><link>https://nicholaspretorius.github.io/til0026/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0026/</guid><pubDate>Thu, 04 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Express, Express, Express&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add static resources to Node.js server&lt;/p&gt;
+&lt;pre&gt;
+    app.use(&apos;/static&apos;, express.static(&apos;public&apos;));
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Modularize your routes, for example, in /routes/index.js:&lt;/p&gt;
+&lt;pre&gt;
+    const express = require(&quot;express&quot;);
+    const router = express.Router();
+
+    router.get(&apos;/&apos;, (req, res) =&gt; {
+        ...
+    });
+    ...
+    module.export = router;
+&lt;/pre&gt;
+&lt;p&gt;Then in your main app.js&lt;/p&gt;
+&lt;pre&gt;
+    const routes = require(&apos;./routes&apos;);
+    app.use(routes);
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Setup CORS for your API app | npm i cors --save&lt;/p&gt;
+&lt;pre&gt;
+    ...
+    var cors = require(&quot;cors&quot;);
+    ...
+    app.use(cors({
+        origin: [&quot;http://localhost:8000&quot;],
+        methods: [&quot;GET&quot;, &quot;POST&quot;],
+        allowedHeaders: [&quot;Content-Type&quot;, &quot;Authorization&quot;]
+    }));
+    ...
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Logging with Morgan | npm i morgan --save&lt;/p&gt;
+&lt;pre&gt;
+...
+var morgan = require(&apos;morgan&apos;);
+...
+app.use(morgan(&apos;common&apos;));
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Configuring Node.js clusters in cluster.js | &lt;a href=&quot;https://nodejs.org/dist/latest-v4.x/docs/api/cluster.html&quot;&gt;Clusters&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;
+    var cluster = require(&quot;cluster&quot;);
+    var os = require(&quot;os&quot;);
+    
+    const CPUS = os.cpus();
+    
+    if (cluster.isMaster) {
+        for (var i = 0; i &lt; CPUS.length; i++) { 
+            cluster.fork() 
+        });
+        
+        cluster.on(&quot;listening&quot;, function(worker) {
+            console.log(`Cluster ${ worker.process.pid } connected`);
+        });
+    
+        cluster.on(&quot;disconnect&quot;, function(worker) {
+            console.log(`Cluster ${ worker.process.pid } disconnected`);
+        });
+
+        cluster.on(&quot;exit&quot;, function(worker) {
+            console.log(`Cluster ${ worker.process.pid } is dead`);
+            // Ensuring a new cluster will start if an old one dies
+            cluster.fork();
+        });
+    } else {
+        require(&quot;./index.js&quot;);
+    }
+&lt;/pre&gt;
+&lt;p&gt;Then run: nodemon cluster.js &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GZIP Compression | npm i compression --save | &lt;a href=&quot;http://expressjs.com/en/advanced/best-practice-performance.html#use-gzip-compression&quot;&gt;Compression&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;
+    ...
+    var compression = require(&apos;compression&apos;);
+    ...
+    app.use(compression(6)); // number indicates level of compression
+&lt;/pre&gt;
+&lt;br/&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Protect from some forms of attach with Helmet | npm i helmet --save&lt;/p&gt;
+&lt;pre&gt;
+    ...
+    var helmet = require(&apos;helmet&apos;);
+    ...
+    app.use(helmet());
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Credit: &lt;a href=&quot;https://medium.com/@Jscrambler/setting-up-5-useful-middlewares-for-an-express-api-640039cc6708&quot;&gt;JScrambler Blog&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[TIL 0025]]></title><description><![CDATA[Node.js, Nodemailer + Express Handlebars, Express + TypeScript Nodemailer-express-handlebars is a useful plugin for Nodemailer that allows…]]></description><link>https://nicholaspretorius.github.io/til0025/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0025/</guid><pubDate>Wed, 03 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Node.js, Nodemailer + Express Handlebars, Express + TypeScript&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Nodemailer-express-handlebars is a useful plugin for Nodemailer that allows you to use Handlebars templates in your HTML emails | &lt;a href=&quot;https://github.com/yads/nodemailer-express-handlebars&quot;&gt;Link&lt;/a&gt; &lt;br/&gt;
