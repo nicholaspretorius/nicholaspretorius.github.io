@@ -1,4 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 04 Jan 2018 18:08:04 GMT</lastBuildDate><item><title><![CDATA[TIL 0026]]></title><description><![CDATA[Express, Express, Express Add static resources to Node.js server Modularize your routes, for example, in /routes/index.js: Then in your main…]]></description><link>https://nicholaspretorius.github.io/til0026/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0026/</guid><pubDate>Thu, 04 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Express, Express, Express&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 05 Jan 2018 16:02:42 GMT</lastBuildDate><item><title><![CDATA[TIL 0027]]></title><description><![CDATA[Azure  &  Node.js, PowerShell Check the OS and architecture in PowerShell:  2 Ways to check which version of Node is running on Azure:  Open…]]></description><link>https://nicholaspretorius.github.io/til0027/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0027/</guid><pubDate>Fri, 05 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Azure &amp;#x26; Node.js, PowerShell&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Check the OS and architecture in PowerShell: &lt;br&gt;&lt;/p&gt;
+&lt;pre&gt;
+    wmic os get caption
+    wmic os get osarchitecture
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2 Ways to check which version of Node is running on Azure: &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open the Kudu Console (via Advanced Tools, CMD) and run: node -v or npm -v&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In the Azure Portal, in the App Service blade, in Application Settings look for:                     &lt;pre&gt;
+WEBSITE_NODE_DEFAULT_VERSION&lt;/p&gt;
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3 Ways to specify the Node.js version to run in Azure:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;In package.json set the following:&lt;/p&gt;
+&lt;pre&gt;
+    &quot;engines&quot;:{
+        &quot;node&quot;: &quot;0.6.22 || 0.8.x&quot;
+    }
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the &apos;node_env&apos; by changing the value mentioned above in Application settings. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set &apos;node_env&apos; in your web.config in the system.webServer block:&lt;/p&gt;
+&lt;pre&gt;
+    &amp;lt;system.webServer&amp;gt;
+        ...
+        &amp;lt;iisnode node_env=&quot;production&quot; /&amp;gt;
+        ...
+    &amp;lt;/system.webServer&amp;gt;
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set it via the iisnode.yml file | &lt;a href=&quot;https://github.com/tjanczuk/iisnode/blob/master/src/samples/configuration/iisnode.yml&quot;&gt;Link&lt;/a&gt;
+&lt;br/&gt;&lt;br/&gt;
+Note: The web.config or iisnode.yml values will override the value in Application Settings&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Deploying Node.js to Azure: &lt;br/&gt;
+&lt;a href=&quot;https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-rest-api&quot;&gt;Link&lt;/a&gt;
+&lt;br/&gt;
+Further reading:
+&lt;br/&gt;
+&lt;a href=&quot;http://mosshowto.blogspot.co.za/2017/10/quick-tutorial-nodejs-app-service-azure.html&quot;&gt;Link&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://mosshowto.blogspot.co.za/2017/10/nodejs-swaggerize-api-into-azure-app.html&quot;&gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The first article above introduced me to Swaggerize, which, via a Yo generator, lets you generate boilerplate code for your API via a Swagger.json document specifying your routes. It will then also setup the Swagger UI for you to enable testing. Very cool! &lt;a href=&quot;https://www.npmjs.com/package/swaggerize-express&quot;&gt;Link&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;As a reminder, when working with GitHub or Azure via a proxy, remember to: &lt;/p&gt;
+&lt;pre&gt;
+    git config --global http.proxy http://proxyuser:proxypassword@proxy.server.domain:port
+    git config --global --unset http.proxy
+    git config --global --get http.proxy
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0026]]></title><description><![CDATA[Express, Express, Express Add static resources to Node.js server Modularize your routes, for example, in /routes/index.js: Then in your main…]]></description><link>https://nicholaspretorius.github.io/til0026/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0026/</guid><pubDate>Thu, 04 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Express, Express, Express&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Add static resources to Node.js server&lt;/p&gt;
