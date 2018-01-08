@@ -1,4 +1,80 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 05 Jan 2018 16:02:42 GMT</lastBuildDate><item><title><![CDATA[TIL 0027]]></title><description><![CDATA[Azure  &  Node.js, PowerShell Check the OS and architecture in PowerShell:  2 Ways to check which version of Node is running on Azure:  Open…]]></description><link>https://nicholaspretorius.github.io/til0027/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0027/</guid><pubDate>Fri, 05 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Azure &amp;#x26; Node.js, PowerShell&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 08 Jan 2018 18:43:04 GMT</lastBuildDate><item><title><![CDATA[TIL 0028]]></title><description><![CDATA[More Azure & Node.js When deploying Node.js to Azure, the default entry file is server.js.  Make sure to set the port in your app to…]]></description><link>https://nicholaspretorius.github.io/til0028/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0028/</guid><pubDate>Mon, 08 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;More Azure &amp;#x26; Node.js&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;When deploying Node.js to Azure, the default entry file is server.js. &lt;/li&gt;
+&lt;li&gt;Make sure to set the port in your app to something like: const port = process.env.port || 8000; so that Azure can use it&apos;s preferred port. &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2 ways to setup up Node.js on Azure:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;In a Virtual Machine&lt;/li&gt;
+&lt;li&gt;In an App Service&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Azure Virtual Machines&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Virtual Machine: In the Azure Portal, select &apos;Virtual machines&apos; and follow the prompts: e.g. Ubuntu, SSD + SSH public key for authentication&lt;/li&gt;
+&lt;li&gt;In iterm2/terminal: ssh-keygen -t rsa -b 2084&lt;/li&gt;
+&lt;li&gt;Remember your passphrase if you set one&lt;/li&gt;
+&lt;li&gt;Once setup: ssh username@IP.ADD.RES.S &lt;/li&gt;
+&lt;li&gt;I had trouble using a non-standard key, as such, I ended up using the default: rsa_id&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once logged in, run: &lt;/p&gt;
+&lt;pre&gt;
+sudo apt-get update
+sudo apt-get install nodejs
+sudo apt-get install npm
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Then run: nodejs -v to check your version and if all is well.
+*On your local, install the Azure CLI via Homebrew: &lt;/p&gt;
+&lt;pre&gt;
+brew update 
+brew install azure-cli
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A few commands to get you started: &lt;/p&gt;
+&lt;pre&gt;
+az -h 
+az vm -h
+az login
+az stop
+az deallocate
+az start
+az account set --subscription your-subcription-name
+az vm list --output-table
+az vm deallocate --name your-vm-name --resource-group your-resource-group
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can then setup Local Git as a deployment source to Azure. &lt;/p&gt;
+&lt;pre&gt;
+cd your-project
+git init
+git add .
+git commit -m &apos;First commit&apos;
+git add remote azure http://the-azure-git-url.git
+git push azure master
+az webapp browse --name your-app-name --resource-group your-resource-group 
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once that is done, you can setup deployment slots as: &lt;/p&gt;
+&lt;pre&gt;
+az webapp -h
+az webapp deployment slot swap --slot your-slot-name --name your-app-name --resource-group your-resource-group-name
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Azure App Service&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;az group create --location &apos;location-name&apos; --name your-app-service-name&lt;/li&gt;
+&lt;li&gt;az appservice plan create --name your-app-service-name --resource your-resource-name --sku FREE&lt;/li&gt;
+&lt;li&gt;az webapp create --name your-app-name --resource-group your-resource-group-name --plan your-plan-name&lt;/li&gt;
+&lt;li&gt;az webapp deployment source config-local-git --name your-app-name --resource-group your-resource-group-name&lt;/li&gt;
+&lt;li&gt;Then connect your add your Azure git remote, add/commit and push. &lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0027]]></title><description><![CDATA[Azure  &  Node.js, PowerShell Check the OS and architecture in PowerShell:  2 Ways to check which version of Node is running on Azure:  Open…]]></description><link>https://nicholaspretorius.github.io/til0027/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0027/</guid><pubDate>Fri, 05 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Azure &amp;#x26; Node.js, PowerShell&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Check the OS and architecture in PowerShell: &lt;br&gt;&lt;/p&gt;
