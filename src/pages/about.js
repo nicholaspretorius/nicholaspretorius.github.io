@@ -6,13 +6,20 @@ import Container from "../components/container";
 export default () => (
     <Container>
         <p>I am a front-end web developer.</p>
+        
+        <p>Currently learning:</p>
+        <ul>
+            <li>Node.js &amp; Express</li>
+            <li>Azure</li>
+        </ul>
 
-        <p>Site built on:</p>
+        <p>This site is proudly built on/with:</p>
         <ul>
             <li>Gatsby + Typography Theme WordPress 2016</li>
             <li>React</li>
             <li>Git</li>
-            <li>Surge &amp; GitHub</li>
+            <li>GitHub (with a little help from Surge at the start)</li>
+            <li>Visual Studio Code</li>
         </ul>
 
         <p>Inspired by:</p>
