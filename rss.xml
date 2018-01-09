@@ -1,4 +1,100 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 08 Jan 2018 18:43:04 GMT</lastBuildDate><item><title><![CDATA[TIL 0028]]></title><description><![CDATA[More Azure & Node.js When deploying Node.js to Azure, the default entry file is server.js.  Make sure to set the port in your app to…]]></description><link>https://nicholaspretorius.github.io/til0028/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0028/</guid><pubDate>Mon, 08 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;More Azure &amp;#x26; Node.js&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 09 Jan 2018 19:25:22 GMT</lastBuildDate><item><title><![CDATA[TIL 0029]]></title><description><![CDATA[Azure Blob Storage npm i busboy azure-storage --save In your Express Generator app/controllers/home.js: (Note that this is just a basic…]]></description><link>https://nicholaspretorius.github.io/til0029/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0029/</guid><pubDate>Tue, 09 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Azure Blob Storage&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;npm i busboy azure-storage --save&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In your Express Generator app/controllers/home.js: (Note that this is just a basic example without login)&lt;/p&gt;
+&lt;pre&gt;
+    ...
+    const Busboy = require(&apos;busboy&apos;);
+    const blobStorage = require(&apos;../services/blobStorage&apos;);
+    ...
+    router.post(&apos;/upload&apos;, function(req, res) {
+
+        var busboy = new Busboy({ headers: req.headers });
+
+        busboy.on(&apos;file&apos;, function(fieldname, file, filename, encoding, mimetype) {
+            blobStorage.saveToBlob(filename, file, function(err, result){
+            if(err) {
+                res.setEncoding(500, err);
+            } else {
+                res.redirect(&apos;/show?name=&apos; + encodeURI(filename));
+            }
+            });
+        });
+        req.pipe(busboy);
+        });
+
+    router.get(&apos;/show&apos;, function (req, res) {
+        res.render(&apos;show&apos;, {
+            name: req.query.name,
+            url: blobStorage.getUrl(req.query.name)
+        });
+    });
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In blobStorage.js | Note, you should not hardcode your details like this, they should be retrieved from Azure directly.&lt;/p&gt;
+&lt;pre&gt;
+    process.env[&apos;AZURE_STORAGE_ACCOUNT&apos;] = &apos;your-storage-name&apos;;
+    process.env[&apos;AZURE_STORAGE_ACCESS_KEY&apos;] = &apos;your-storage-access-key&apos;;
+
+    var azure = require(&apos;azure-storage&apos;);
+    var blobService = azure.createBlobService();
+    var images = &apos;images&apos;;
+
+    function saveToBlob(name, stream, cb) {
+
+        // cb is callback
+        stream.pipe(blobService.createWriteStreamToBlockBlob(images, name, cb));
+    }
+
+    function getUrl(name) {
+
+        var startDate = new Date();
+        startDate.setMinutes(startDate.getMinutes() - 15);
+
+        var expiryDate = new Date(startDate);
+        expiryDate.setMinutes(startDate.getMinutes() + 30);
+
+        var permissions = azure.BlobUtilities.SharedAccessPermissions.READ;
+
+        var sharedAccessPolicy = {
+            AccessPolicy: {
+            Permissions: azure.BlobUtilities.SharedAccessPermissions.READ,
+            Start: startDate,
+            Expiry: expiryDate
+            },
+        };
+
+        var sasToken = blobService.generateSharedAccessSignature(images, name, sharedAccessPolicy);
+
+        return blobService.getUrl(images, name, sasToken);
+    }
+
+    module.exports = {
+        saveToBlob: saveToBlob,
+        getUrl: getUrl
+    };
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In your .pug form&lt;/p&gt;
+&lt;pre&gt;
+    form(action=&quot;/upload&quot;, method=&quot;post&quot;, enctype=&quot;multipart/form-data&quot;)
+        input(type=&quot;file&quot;, name=&quot;image&quot;)
+        button(type=&quot;submit&quot;, value=&quot;Upload&quot;) Upload photo
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In your .pug redirected page&lt;/p&gt;
+&lt;pre&gt;
+    p Showing #{name}
+    img(src=url)
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[TIL 0028]]></title><description><![CDATA[More Azure & Node.js When deploying Node.js to Azure, the default entry file is server.js.  Make sure to set the port in your app to…]]></description><link>https://nicholaspretorius.github.io/til0028/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0028/</guid><pubDate>Mon, 08 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;More Azure &amp;#x26; Node.js&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;When deploying Node.js to Azure, the default entry file is server.js. &lt;/li&gt;
 &lt;li&gt;Make sure to set the port in your app to something like: const port = process.env.port || 8000; so that Azure can use it&apos;s preferred port. &lt;/li&gt;
