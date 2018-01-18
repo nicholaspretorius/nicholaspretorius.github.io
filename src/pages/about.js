@@ -24,7 +24,7 @@ export default () => (
 
         <p>Inspired by:</p>
         <ul>
-            <li>https://github.com/jbranchaud/til</li>
+            <li><a href="https://github.com/jbranchaud/til" target="_blank">https://github.com/jbranchaud/til</a></li>
         </ul>
     </Container>
 );
