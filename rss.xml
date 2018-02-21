@@ -1,4 +1,114 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 01 Feb 2018 19:50:10 GMT</lastBuildDate><item><title><![CDATA[TIL 0038]]></title><description><![CDATA[One of those days First day of a new month. It seems to me that while we are adopting agile, we are still very much in a waterfall mindset…]]></description><link>https://nicholaspretorius.github.io/til0038/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0038/</guid><pubDate>Thu, 01 Feb 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;One of those days&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 21 Feb 2018 17:56:23 GMT</lastBuildDate><item><title><![CDATA[TIL 0040]]></title><description><![CDATA[Who killed the Junior Developer? Thought provoking piece  by Melissa McEwen on the difficulty junior developers face in finding jobs. To my…]]></description><link>https://nicholaspretorius.github.io/til0040/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0040/</guid><pubDate>Wed, 21 Feb 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Who killed the Junior Developer?&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@melissamcewen/who-killed-the-junior-developer-33e9da2dc58c&quot;&gt;Thought provoking piece&lt;/a&gt; by Melissa McEwen on the difficulty junior developers face in finding jobs. To my reading, the article focuses more on the poor prospects of the mentoring relationship between seniors and juniors with a hint about the economics of hiring juniors than the difficulty of finding jobs per se. The piece then fleshes out some ideas around the lack of willingness for companies to support juniors. The piece then ends off with a bombshell saying &quot;It’s not just a sign that an individual company is broken, it’s a sign the entire industry is broken.&quot; and leaves it at that.&lt;/p&gt;
+&lt;p&gt;Whoa... I hear you, but...&lt;/p&gt;
+&lt;p&gt;I agree, that this is an industry issue, but the industry is made up of individuals companies, and those companies are made up of individuals. So where to start?&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;If you are hiring...&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you are a manager and you need to hire a developer, clearly define what the role of that person will be. Focus on the 80% of the task you need the candidate to deliver on daily. Once that is done, consider what level of developer is needed for this delivery. Often times, you need senior developers for &quot;design&quot; or &quot;architecture&quot; work. You need seniors to solve the hard problems and to guide projects and teams. You need a mix of juniors and intermediates to implement and rollout the work. The reason seniors may not have time to mentor is because they do not have time to work and solve the hard problem in a sustainable, sensible manner. Their time is likely being taken up doing chaotic, scope-creepy work that is unplanned, unscoped and poorly managed. I find it helps to think about a factory production line: You need the best, experienced people to design the prototype, to answer the hard questions and to create the solid foundation to solve the problem. From there, you need a mix of intermediates/juniors to implement with the seniors to guide. Master/apprentice is the goal. &lt;/p&gt;
+&lt;p&gt;The reason definition also helps is that it is far easier to prepare and train a junior for a specific set of tasks than an amorphous, undefined collection of &quot;possible&quot; tasks. Related to that, a lot of development experience is knowing which questions to ask and building up a reliable, repeatable way in which to solve any particular problem. I find that many times, the difference between an experienced developer and an inexperienced developer is that experienced developers know which questions to ask, they have a history of problems solved that over time build into an intuition in being able to ever more rapidly recognise classes of problems and what their causes &lt;em&gt;might&lt;/em&gt; be. &lt;/p&gt;
+&lt;p&gt;Thinking to my junior days, a lot of time is spent butting your head against things because: &lt;br/&gt;
+a. It doesn&apos;t work &lt;br/&gt;
+b. You have no idea why it doesn&apos;t work &lt;br/&gt;
+c. You have no idea how to dig yourself out of that hole. &lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;As you gain experience you start learn: &lt;br/&gt;
+a. It doesn&apos;t work&lt;br/&gt;
+b. You have a collection of skills by which you can determine the cause of not working&lt;br/&gt;
+c. You have a further set of skills by which, once the cause is found, to work yourself out of the problem.&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Finally, as a manager do not create &quot;wishlist&quot; positions. Do not list every keyword and jargon you can think of. It does not help you, it does not help the candidate.&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Full-stack shmack. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&quot;Full-stack&quot; as a buzzword is bullshit. It&apos;s a lazy marketing term that allows for managers and teams not to define roles and tasks as laid out in point 1. Yes, there are developers who can do it all, but the ones who can do it well are few and far between and if you speak to them, you will find they will have a preference.
+If you can do it all, that is great! I am jealous and I really do wish I was better at more languages. &lt;/p&gt;
+&lt;p&gt;To my mind, being full-stack means that you are flexible and that management can use you where they need you in a pinch. It also means, you are likely to get shoehorned into work you do not want to do if you are not clear about what type of work you WANT to do. The primary rule again, define. Now back to that manager, if you need a full-stack developer, it is because you: &lt;br/&gt;
+a. Need someone flexible, a utility player. &lt;br/&gt;
+b. Need a one-member-band to run a solo project or near-solo project.&lt;br/&gt;
+c. You have not bothered with point 1 above. &lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;If the answer is a or b, go back to point 1 and define this in those terms. Many skilled developers like to come in and save a project or come in to handle things themselves. There is an appeal there. If this is the case, a junior is not going to help you anyway. Better not to waste the time and effort. &lt;/p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;Donkey work. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Every company has donkey work to be done. All that shit you don&apos;t want to do or did so much of as a junior you vowed never to do it again. Companies need people for this, senior developers need people for this. Machine learning and automation may herald the end of some of this stuff, but until then, if you fill up senior plates with shit, they will shovel crappy code. &lt;/p&gt;
+&lt;p&gt;The trick here is, you should not just hire a junior and only give them donkey work. You need to build them up. The donkey work is their to teach them some things. What front-end developer worth their salt has not spent far too long marking up HTML emails, doing crappy banners and trying to get some arcane CMS template to render in IE? &lt;/p&gt;
+&lt;p&gt;Developers need to do this type of work, and juniors need to accept it willingly. Raises will come, better work will come, but if you don&apos;t have experience, be prepared to shovel and shovel hard. This may even create the space a senior developer needs to solve the donkey problem in the first place.&lt;/p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Compensation. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This varies market to market and company to company, but all job posts should come with a salary indication other than &quot;market rates apply&quot;. Any job post I see with &quot;market rates apply&quot; signals caution. You then get juniors trying to score higher than their worth rates and companies trying to score lower than they are worth offers to candidates. Both are doing themselves and the &quot;industry&quot; a disservice. Wny would I want to work for someone who claims long term value and growth but is not willing to put their money where their mouth is? &lt;/p&gt;
+&lt;p&gt;Naming the price also lets candidates see where in the market they can reasonably look to find a place and possibly the path of progression they might be entering into. As an employer, name your price. As a candidate, define what you are willing to work for. &lt;/p&gt;
+&lt;p&gt;A customer does not walk into a shop with no price tags unless they have a lot of money in their wallet or are just window shopping.&lt;/p&gt;
+&lt;ol start=&quot;5&quot;&gt;
+&lt;li&gt;What is junior? &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Finally, I am not sure what a &quot;junior&quot; is really. Web development is about skills and solving problems effectively. Someone may have worked for a year and become a really good developer and grokked a lot that someone doing HTML emailers for 3 year may not have. Junior is also, to my mind, somewhat of a derogatory term. If you are 30 years old and have decided to change careers you are not a &quot;junior&quot;. You have experience and skills that may come to bear in unexpected ways in your new career. I prefer the term &quot;novice&quot; or &quot;rookie&quot; to &quot;junior&quot;. The level-terminology is also a little better: entry-level, mid-level, high-level, advanced or pro-level. &lt;/p&gt;</content:encoded></item><item><title><![CDATA[TIL 0039]]></title><description><![CDATA[TypeScript Basics]]></description><link>https://nicholaspretorius.github.io/til0039/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0039/</guid><pubDate>Fri, 02 Feb 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TypeScript Basics&lt;/h3&gt;
+&lt;pre&gt;
+function LogBook() { 
+    this.trips = [];
+}
+
+LogBook.prototype.addTrip = function (trip) {
+    this.trips = this.trips.concat([trip]);
+    //immutable way of adding - Angular favours this. 
+    // Alternatvie to this.trips.push(trip);
+};
+
+LogBook.prototype.removeTrip = function (trip) { 
+    this.trips = this.trips.filter(function (log) { 
+        return trip !== log;
+    })
+}
+
+var myLog = new LogBook();
+
+myLog.addTrip(43);
+myLog.addTrip(7);
+myLog.addTrip(29);
+
+console.log(&quot;My Log: &quot;, myLog);
+console.log(typeof (myLog));
+console.log(&quot;My Trips: &quot;, myLog.trips);
+
+myLog.removeTrip(7);
+
+console.log(&quot;My Trips: &quot;, myLog.trips);
+
+// ES6/2015 class - TS Classes
+
+class ShoppingList { 
+
+    groceries: string[]; // array of string
+
+    constructor() { 
+        this.groceries = [];
+    }
+
+    // Public property on ShoppingList class
+    addItem(item) {
+        // Use ES6 spread operator to add item, alternative to concat and push
+        this.groceries = [...this.groceries, item];
+     }
+
+    removeItem(item) {
+        // implicit return using an ES6 arrow function
+        this.groceries = this.groceries.filter((grocery) =&gt; item !== grocery);
+        // same as in Trips 
+        
+     }
+}
+
+const myList = new ShoppingList();
+
+myList.addItem(&quot;Apple&quot;);
+myList.addItem(&quot;Banana&quot;);
+
+console.log(myList.groceries);
+
+myList.removeItem(&quot;Apple&quot;);
+
+console.log(myList.groceries);
+
+&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[TIL 0038]]></title><description><![CDATA[One of those days First day of a new month. It seems to me that while we are adopting agile, we are still very much in a waterfall mindset…]]></description><link>https://nicholaspretorius.github.io/til0038/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0038/</guid><pubDate>Thu, 01 Feb 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;One of those days&lt;/h3&gt;
 &lt;p&gt;First day of a new month. It seems to me that while we are adopting agile, we are still very much in a waterfall mindset. I imagine it will take some time to move through this. In any event, the day was spent mostly working on estimates on unknowns far in advance. Something I wonder is how do developments teams trying to work agile quote for departments that expect waterfall? &lt;/p&gt;
 &lt;p&gt;The very nature of providing a quote for work to be done, on a system to be built to completion for departments that have set budgets that they have to spend in a set amount of time with expectations of delivery of a highly specified product that looks good in a PowerPoint inevitably leads to waterfall. &lt;/p&gt;
 &lt;p&gt;Something to think about...&lt;/p&gt;</content:encoded></item><item><title><![CDATA[TIL 0037]]></title><description><![CDATA[Azure Shell We are going to be getting a Java developer to do some work with us next week, as result I needed to prepare an environment for…]]></description><link>https://nicholaspretorius.github.io/til0037/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0037/</guid><pubDate>Wed, 31 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Azure Shell&lt;/h3&gt;
