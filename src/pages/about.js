@@ -5,13 +5,7 @@ import Container from "../components/container";
 
 export default () => (
     <Container>
-        <p>I am a front-end web developer.</p>
-        
-        <p>Currently learning:</p>
-        <ul>
-            <li>Node.js &amp; Express</li>
-            <li>Azure</li>
-        </ul>
+        <p>I am a web developer, designer and user experience consultant.</p>
 
         <p>This site is proudly built on/with:</p>
         <ul>

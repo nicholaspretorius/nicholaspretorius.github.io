@@ -38,7 +38,7 @@ const BlogPost = props => (
 
 export default ({ data }) => (
     <Container>
-        <p>Rudimentary "Today I Learned" log with { data.allMarkdownRemark.totalCount } posts to date.</p>
+        <p>A <em>very</em> rudimentary "Today I Learned" log with { data.allMarkdownRemark.totalCount } posts to date.</p>
 
         {data.allMarkdownRemark.edges.map(({ node }) => (
             <BlogPost key={ node.id }

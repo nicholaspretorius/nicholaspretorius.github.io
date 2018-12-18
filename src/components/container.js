@@ -8,7 +8,9 @@ export default ({ children }) => (
 
         <div style={{ margin: "3.5rem 0", float:"right"}}>
             <Link to="/" style={{marginRight:"1rem"}}>Home</Link>
-            <Link to="/about/">About</Link>
+            <Link to="/about" style={{marginRight:"1rem"}}>About</Link>
+            <Link to="/uses" style={{marginRight:"1rem"}}>Uses</Link>
+            <Link to="/now">Now</Link>
         </div>
         { children }
     </div>
