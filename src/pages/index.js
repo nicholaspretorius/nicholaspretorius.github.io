@@ -31,8 +31,8 @@ const BlogPost = props => (
         <Link to={ props.to }>
             <Title>{ props.title }</Title>
         </Link>
-        <Excerpt>{ props.excerpt }</Excerpt>
         <Date>{ props.date }</Date>
+        <Excerpt>{ props.excerpt }</Excerpt>
     </BlogWrapper>
 );
 

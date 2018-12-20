@@ -5,7 +5,11 @@ import Container from "../components/container";
 
 export default () => (
     <Container>
-        <p>I am a web developer, designer and user experience consultant.</p>
+        <p>I am a web developer, designer and user experience consultant.</p> 
+
+        <p><a href="https://github.com/nicholaspretorius" target="_blank">GitHub</a></p>
+        
+        <p>I work primarily with HTML, CSS/LESS/SASS and various flavours of JavaScript.</p>
 
         <p>This site is proudly built on/with:</p>
         <ul>
