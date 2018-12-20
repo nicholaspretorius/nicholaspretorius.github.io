@@ -7,8 +7,6 @@ export default () => (
     <Container>
         <p>I am a web developer, designer and user experience consultant.</p> 
 
-        <p><a href="https://github.com/nicholaspretorius" target="_blank">GitHub</a></p>
-        
         <p>I work primarily with HTML, CSS/LESS/SASS and various flavours of JavaScript.</p>
 
         <p>This site is proudly built on/with:</p>
@@ -20,9 +18,18 @@ export default () => (
             <li>Visual Studio Code</li>
         </ul>
 
-        <p>Inspired by:</p>
+        <h5>Inspired by:</h5>
         <ul>
             <li><a href="https://github.com/jbranchaud/til" target="_blank">https://github.com/jbranchaud/til</a></li>
         </ul>
+
+        <h5>Find me here</h5>
+
+        <ul>
+            <li><a href="https://github.com/nicholaspretorius" target="_blank">GitHub</a></li>
+            <li><a href="https://sourcerer.io/nicholaspretorius" target="_blank">Sourceror</a></li>
+            <li><a href="https://stackoverflow.com/users/4847180/nicholas-pretorius" target="_blank">Stack Exchange</a></li>
+        </ul>
+
     </Container>
 );
