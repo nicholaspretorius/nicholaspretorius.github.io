@@ -1,5 +1,5 @@
-# gatsby-starter-hello-world
-Starter with the bare essentials needed for a [Gatsby](https://www.gatsbyjs.org/) site
+# Nicholas Pretorius GitHub Page
+Modified Gatsby starter used to run my personal GitHub page inspired by the "Today I Learned" blogs.
 
 Install this starter (assuming Gatsby is installed) by running from your CLI:
 ```
