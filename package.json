@@ -9,7 +9,7 @@
     "deploy": "gatsby build && gh-pages -d public -b master"
   },
   "dependencies": {
-    "gatsby": "^2.0.75",
+    "gatsby": "^1.9.279",
     "gatsby-link": "^1.6.46",
     "gatsby-plugin-feed": "^1.3.25",
     "gatsby-plugin-styled-components": "^2.0.11",
