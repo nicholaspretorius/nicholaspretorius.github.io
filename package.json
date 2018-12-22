@@ -20,6 +20,7 @@
     "typography-theme-wordpress-2016": "^0.15.10"
   },
   "devDependencies": {
-    "gh-pages": "^1.2.0"
+    "gh-pages": "^1.2.0",
+    "gatsby-cli": "^1.5.8"
   }
 }
