@@ -1,6 +1,4 @@
 import React from "react";
-import styled from "styled-components";
-
 import Container from "../components/container";
 
 export default () => (
@@ -20,15 +18,15 @@ export default () => (
 
         <h5>Inspired by:</h5>
         <ul>
-            <li><a href="https://github.com/jbranchaud/til" target="_blank">https://github.com/jbranchaud/til</a></li>
+            <li><a href="https://github.com/jbranchaud/til" target="_blank" rel="noopener noreferrer">https://github.com/jbranchaud/til</a></li>
         </ul>
 
         <h5>Find me here</h5>
 
         <ul>
-            <li><a href="https://github.com/nicholaspretorius" target="_blank">GitHub</a></li>
-            <li><a href="https://sourcerer.io/nicholaspretorius" target="_blank">Sourceror</a></li>
-            <li><a href="https://stackoverflow.com/users/4847180/nicholas-pretorius" target="_blank">Stack Exchange</a></li>
+            <li><a href="https://github.com/nicholaspretorius" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://sourcerer.io/nicholaspretorius" target="_blank" rel="noopener noreferrer">Sourceror</a></li>
+            <li><a href="https://stackoverflow.com/users/4847180/nicholas-pretorius" target="_blank" rel="noopener noreferrer">Stack Exchange</a></li>
         </ul>
 
     </Container>

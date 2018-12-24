@@ -1,4 +1,5 @@
 import React from "react"
+import { graphql } from "gatsby";
 import Container from "../components/container";
 
 export default ({ data }) => {

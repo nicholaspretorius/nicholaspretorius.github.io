@@ -1,13 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-
 import Container from "../components/container";
 
 export default () => (
     <Container>
         <h5>Nows.</h5> 
         <ul>
-            <li>Building: <a href="https://github.com/nicholaspretorius/itemly" target="_blank">Itemly</a>: A rudimentary Todo API.</li>
+            <li>Building: <a href="https://github.com/nicholaspretorius/itemly" target="_blank" rel="noopener noreferrer">Itemly</a>: A rudimentary Todo API.</li>
             <li>Learning: Nest.js, Typescript, Angular</li>
             <li>Watching (Course): Angular Core Deep Dive by Angular Univesity</li>
             <li>Reading: Born to Run by Christopher McDougall</li>
