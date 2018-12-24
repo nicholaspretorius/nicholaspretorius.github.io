@@ -5,6 +5,8 @@
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
+    "rename": "mv public docs",
+    "rebuild": "gatsby build && npm run rename",
     "serve": "gatsby serve",
     "deploy": "gatsby build && gh-pages -d public -b master",
     "deploy-gh": "gatsby build && git push https://github.com/nicholaspretorius/nicholaspretorius.github.io.git master"
