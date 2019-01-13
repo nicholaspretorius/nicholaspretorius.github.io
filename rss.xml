@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 10 Jan 2019 17:53:50 GMT</lastBuildDate><item><title><![CDATA[Markdown.]]></title><description><![CDATA[I have become a big fan of Markdown!  It's the de-facto standard for readme files, and having spent a considerable amount of time working in…]]></description><link>https://nicholaspretorius.github.io/til0072/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0072/</guid><pubDate>Thu, 10 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I have become a big fan of Markdown! &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 13 Jan 2019 19:09:31 GMT</lastBuildDate><item><title><![CDATA[Arrays in JavaScript.]]></title><description><![CDATA[The past few years, working the JavaScript, the for loop was the go-to tool for iterating and working on collections in my work. Over the…]]></description><link>https://nicholaspretorius.github.io/til0073/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0073/</guid><pubDate>Sun, 13 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The past few years, working the JavaScript, the for loop was the go-to tool for iterating and working on collections in my work. Over the last few months, as modern JavaScript and TypeScript have become a daily part of my development habits, I am really enjoying some of the new ES6 features for working with arrays: &lt;/p&gt;
+&lt;h3&gt;Array.map&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map&quot;&gt;Array.map&lt;/a&gt; lets you iterate over an array and it will return a new array, as follows: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;const result = array.map(item =&gt; { ... do something making use of each item...});&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;What&apos;s great about this is that it does not mutate the original array. Additionally, you can added second parameter to get the index of the item, like so: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;const result = array.map((item, index) =&gt; {
+    ... do something making use of item and index
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Array.filter&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter&quot;&gt;Array.filter&lt;/a&gt;, similarly, lets you iterate over an array, using a conditional to &lt;em&gt;filter&lt;/em&gt; the array according to some criteria: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;const filteredResult = array.filter(item =&gt; ... check against some condition... );&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Again, you can get a hold of the index by passing a second parameter like: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;const filteredResult = array.filter((item, index) =&gt; ... check against some condition... );&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Array.slice&lt;/h3&gt;
+&lt;p&gt;While this is not so new, &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice&quot;&gt;Array.slice&lt;/a&gt; is useful since it returns a copy and does not mutate the original: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;const slicedResults = array.slice(startIndex, endIndex); // end index is *not* included&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You could also achieve a similar result as above by using lodash like so: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import _ from &apos;lodash&apos;
+
+const result = _(array).slice(startIndex).take(numOfItems).value();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Array.reduce&lt;/h3&gt;
+&lt;p&gt;Another very useful function is &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce&quot;&gt;Array.reduce&lt;/a&gt;. What this does is that it &lt;em&gt;reduces&lt;/em&gt; the array to a single value by performing some computation on the items. It take two parameters, an accumulator and the value. Note, if you need to check against some condition, you will first need to filter your array on the condition and then chain the reduce onto that. &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;const result = array.filter(item =&gt; ... do some check against a condition ...).reduce((accumulator, value)) =&gt; {... do some calculation...});&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The above are so much simpler to work with than for loops once you get a hold of them!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Markdown.]]></title><description><![CDATA[I have become a big fan of Markdown!  It's the de-facto standard for readme files, and having spent a considerable amount of time working in…]]></description><link>https://nicholaspretorius.github.io/til0072/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0072/</guid><pubDate>Thu, 10 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I have become a big fan of Markdown! &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;It&apos;s the de-facto standard for readme files, and having spent a considerable amount of time working in Git and becoming accustomed to Git and GitHub conventions, Markdown has become a daily part of life. &lt;/li&gt;
 &lt;li&gt;This blog itself is powered by Markdown, and of late, I have been writing to it daily which has lead to me becoming increasingy accustomed to the conventions. &lt;/li&gt;
