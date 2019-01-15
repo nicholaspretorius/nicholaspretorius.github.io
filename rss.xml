@@ -1,4 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 14 Jan 2019 18:25:53 GMT</lastBuildDate><item><title><![CDATA[React Tips.]]></title><description><![CDATA[These are some tips when coding with React:  Components When creating components,  use  the component first before implementing it. That is…]]></description><link>https://nicholaspretorius.github.io/til0074/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0074/</guid><pubDate>Mon, 14 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;These are some tips when coding with React: &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[PostCode]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Jan 2019 18:39:30 GMT</lastBuildDate><item><title><![CDATA[Binary Trees: Part 1]]></title><description><![CDATA[I have been avoiding this. Ever since I first encountered the binary tree in the Daily Coding Problems, I have been procrastinating on this…]]></description><link>https://nicholaspretorius.github.io/til0075/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0075/</guid><pubDate>Tue, 15 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I have been avoiding this. Ever since I first encountered the binary tree in the Daily Coding Problems, I have been procrastinating on this topic. If ever my impostor syndrome regarding my abilities or designation as a &apos;programmer&apos; had effect it is in situations like this. But, I can&apos;t avoid it forever, and you every journey starts with one step, so here we go!&lt;/p&gt;
+&lt;h3&gt;Binary Trees&lt;/h3&gt;
+&lt;p&gt;A binary tree is a data structure that has at most, two children. Since a binary tree can only have at most 2 children, we name them left or right. &lt;/p&gt;
+&lt;h4&gt;Use Cases&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Typically trees are used to store hierarchical information - ie. files in a computer&lt;/li&gt;
+&lt;li&gt;Manipulate hierarchical data&lt;/li&gt;
+&lt;li&gt;Make information easy to search (tree traversal)&lt;/li&gt;
+&lt;li&gt;Manipulate sorted lists of data&lt;/li&gt;
+&lt;li&gt;Multi-stage decision making&lt;/li&gt;
+&lt;li&gt;Router algorithms&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Attributes&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Moderate access/search (quicker than linked list, slower than arrays)&lt;/li&gt;
+&lt;li&gt;Moderate insertion/deletion (quicker than arrays, slower than unordered linked lists)&lt;/li&gt;
+&lt;li&gt;Trees don’t have an upper limit on number of nodes as nodes are linked using pointers. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Properties&lt;/h4&gt;
+&lt;p&gt;A node on a tree contains the following: &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Data&lt;/li&gt;
+&lt;li&gt;A pointer to the left child&lt;/li&gt;
+&lt;li&gt;A pointer to the right child&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Terms&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;A node with no parent is the root node. &lt;/li&gt;
+&lt;li&gt;A node with no children is called a leaf. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Code&lt;/h4&gt;
+&lt;p&gt;Below is the most basic definition of a node in a binary tree: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Node {
+    constructor(data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+
+    // Todo
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To be continued...&lt;/p&gt;
+&lt;p&gt;Hat Tip to &lt;a href=&quot;https://www.geeksforgeeks.org/binary-tree-set-1-introduction/&quot;&gt;Geeks for Geeks&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React Tips.]]></title><description><![CDATA[These are some tips when coding with React:  Components When creating components,  use  the component first before implementing it. That is…]]></description><link>https://nicholaspretorius.github.io/til0074/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0074/</guid><pubDate>Mon, 14 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;These are some tips when coding with React: &lt;/p&gt;
 &lt;h4&gt;Components&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
