@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 31 Jul 2019 17:40:37 GMT</lastBuildDate><item><title><![CDATA[This and That.]]></title><description><![CDATA[Faker. Faker.js is a really cool utility library for generating, you guessed it! Fake data. This is especially useful when working on…]]></description><link>https://nicholaspretorius.github.io/til0109/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0109/</guid><pubDate>Wed, 31 Jul 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Faker.&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 01 Aug 2019 18:46:54 GMT</lastBuildDate><item><title><![CDATA[Heroku Commands.]]></title><description><![CDATA[Cheat Sheet. These are some of the basic Heroku commands to keep in mind once you have the Heroku CLI installed:  heroku -v // provides you…]]></description><link>https://nicholaspretorius.github.io/til0110/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0110/</guid><pubDate>Thu, 01 Aug 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Cheat Sheet.&lt;/h3&gt;
+&lt;p&gt;These are some of the basic Heroku commands to keep in mind once you have the Heroku CLI installed: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;heroku -v // provides you with version info&lt;/li&gt;
+&lt;li&gt;heroku auth:whoami // displays who you are currently logged in as&lt;/li&gt;
+&lt;li&gt;heroku info app-name-here // provides you with info about your app&lt;/li&gt;
+&lt;li&gt;heroku open // opens the app you are working on&lt;/li&gt;
+&lt;li&gt;heroku create // creates a new Heroku app and links the Git repo to yours i.e. you do not need to add a remote&lt;/li&gt;
+&lt;li&gt;git remote -v // if you want to check which Git remotes you have&lt;/li&gt;
+&lt;li&gt;heroku logs // displays the logs&lt;/li&gt;
+&lt;li&gt;heroku releases -a app-name-here // displays details of the releases of the app on Heroku&lt;/li&gt;
+&lt;li&gt;heroku status // lets you know if there are any known issues on the platform at present&lt;/li&gt;
+&lt;li&gt;git push heroku master // will deploy your app from master to Heroku&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[This and That.]]></title><description><![CDATA[Faker. Faker.js is a really cool utility library for generating, you guessed it! Fake data. This is especially useful when working on…]]></description><link>https://nicholaspretorius.github.io/til0109/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0109/</guid><pubDate>Wed, 31 Jul 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Faker.&lt;/h3&gt;
 &lt;p&gt;Faker.js is a really cool utility library for generating, you guessed it! Fake data. This is especially useful when working on prototypes or MVPs before you have real data but don&apos;t want everything to look like it has been cut and pasted from the same place. Simple to use: &lt;/p&gt;
 &lt;p&gt;&lt;code&gt;yarn add faker&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;In index.js: &lt;/p&gt;
