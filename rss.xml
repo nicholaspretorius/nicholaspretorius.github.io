@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sat, 10 Aug 2019 18:58:26 GMT</lastBuildDate><item><title><![CDATA[Google Sheets Cheat Sheet.]]></title><description><![CDATA[While I have been a longtime user of Google Sheets. My usage has not been very deep. Mostly just making lists of things I like to keep track…]]></description><link>https://nicholaspretorius.github.io/til0112/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0112/</guid><pubDate>Tue, 06 Aug 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;While I have been a longtime user of Google Sheets. My usage has not been very deep. Mostly just making lists of things I like to keep track of. However, with the discovery of the wonderful app called &lt;a href=&quot;https://www.glideapps.com/&quot;&gt;Glide&lt;/a&gt;, my usage of Google Sheets has increased dramatically! &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 13 Aug 2019 17:59:34 GMT</lastBuildDate><item><title><![CDATA[5 Ways to Reverse a String.]]></title><description><![CDATA[Using .reverse() Using .reduce() Using for... of Using a for() loop Using a while() loop Tests.]]></description><link>https://nicholaspretorius.github.io/til0113/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0113/</guid><pubDate>Tue, 13 Aug 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Using .reverse()&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;function reverse(str) {
+  // const arr = str.split(&quot;&quot;);
+  const arr = Array.from(str);
+  return arr.reverse().join(&quot;&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Using .reduce()&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;function reverse(str) {
+  return str.split(&quot;&quot;).reduce((result, letter) =&gt; {
+    return letter + result;
+  }, &quot;&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Using for... of&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;function reverse(str) {
+  let revStr = &quot;&quot;;
+
+  for (let letter of str) {
+    revStr = letter + revStr;
+  }
+
+  return revStr;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Using a for() loop&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;function reverse(str) {
+  const arr = str.split(&quot;&quot;);
+  const rev = [];
+
+  for (var i = arr.length - 1; i &gt;= 0; i--) {
+    rev.push(arr[i]);
+  }
+
+  return rev.join(&quot;&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Using a while() loop&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;function reverse(str) {
+  let count = str.length - 1;
+  let revStr = &quot;&quot;;
+  while (count &gt;= 0) {
+    revStr += str.charAt(count);
+    count -= 1;
+  }
+  return revStr;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Tests.&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;test(&apos;Reverse function exists&apos;, () =&gt; {
+  expect(reverse).toBeDefined();
+});
+
+test(&apos;Reverse reverses a string&apos;, () =&gt; {
+  expect(reverse(&apos;abcd&apos;)).toEqual(&apos;dcba&apos;);
+});
+
+test(&apos;Reverse reverses a string&apos;, () =&gt; {
+  expect(reverse(&apos; abcd&apos;)).toEqual(&apos;dcba &apos;);
+});
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[Google Sheets Cheat Sheet.]]></title><description><![CDATA[While I have been a longtime user of Google Sheets. My usage has not been very deep. Mostly just making lists of things I like to keep track…]]></description><link>https://nicholaspretorius.github.io/til0112/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0112/</guid><pubDate>Tue, 06 Aug 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;While I have been a longtime user of Google Sheets. My usage has not been very deep. Mostly just making lists of things I like to keep track of. However, with the discovery of the wonderful app called &lt;a href=&quot;https://www.glideapps.com/&quot;&gt;Glide&lt;/a&gt;, my usage of Google Sheets has increased dramatically! &lt;/p&gt;
 &lt;h4&gt;Filter.&lt;/h4&gt;
 &lt;p&gt;Filter is a very useful formula enabling you to &lt;em&gt;filter&lt;/em&gt; your view of data. For example: &lt;/p&gt;
 &lt;p&gt;&lt;code&gt;=filter(SheetName!A:E,Sheet!E:E=TRUE)&lt;/code&gt;&lt;/p&gt;
