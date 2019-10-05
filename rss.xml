@@ -1,4 +1,97 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 04 Oct 2019 17:14:13 GMT</lastBuildDate><item><title><![CDATA[Decisions/Trade-Offs.]]></title><description><![CDATA[The Udacity React Nanodegree's first project is a simple application called "My Reads". Effectively, the app involves you adding and moving…]]></description><link>https://nicholaspretorius.github.io/til0121/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0121/</guid><pubDate>Fri, 04 Oct 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The Udacity React Nanodegree&apos;s first project is a simple application called &quot;My Reads&quot;. Effectively, the app involves you adding and moving books between &quot;bookshelves/lists&quot; based on whether you: &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sat, 05 Oct 2019 16:07:06 GMT</lastBuildDate><item><title><![CDATA[Redux Notes.]]></title><description><![CDATA[Today I started learning some Redux. As I understand it, Redux, in short is a  predictable state container  for JavaScript apps with the…]]></description><link>https://nicholaspretorius.github.io/til0122/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0122/</guid><pubDate>Sat, 05 Oct 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Today I started learning some Redux. As I understand it, Redux, in short is a &lt;em&gt;predictable state container&lt;/em&gt; for JavaScript apps with the primary goal being to improve the predictability of state in an application. &lt;/p&gt;
+&lt;p&gt;Instead of mixing application state in amongst UI code all over the app, Redux stores all data in once location. This data store is a state tree. Essentially one JavaScript object outside of the UI. The UI will then reference the state. &lt;/p&gt;
+&lt;p&gt;There are 4 elements in Redux: &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The state.&lt;/li&gt;
+&lt;li&gt;Getting the state.&lt;/li&gt;
+&lt;li&gt;Listening for changes to the state.&lt;/li&gt;
+&lt;li&gt;Updating the state. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;These functionalities are distributed amongst the following (simplified example): &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Store = state (+ the function of the store)&lt;/li&gt;
+&lt;li&gt;Getting the state = getState function. &lt;/li&gt;
+&lt;li&gt;Listening for changes to the state = subscribe function. &lt;/li&gt;
+&lt;li&gt;Updating the state = dispatch function. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Actions.&lt;/h3&gt;
+&lt;p&gt;Actions are events that trigger changes to state. They are javascript objects with a &lt;em&gt;required&lt;/em&gt; type property and an &lt;em&gt;optional&lt;/em&gt; payload. &lt;/p&gt;
+&lt;h3&gt;Actions Creators.&lt;/h3&gt;
+&lt;p&gt;Action creators are functions that create/return action objects. &lt;/p&gt;
+&lt;h3&gt;Reducers.&lt;/h3&gt;
+&lt;p&gt;Reducers are functions that take in state and actions and return new (not-mutated) state. &lt;/p&gt;
+&lt;h3&gt;Store.&lt;/h3&gt;
+&lt;p&gt;The store returns the store object. createStore must be passed a reducer with which to operate on the store. The store itself has three methods: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;getState()&lt;/li&gt;
+&lt;li&gt;subscribe()&lt;/li&gt;
+&lt;li&gt;dispatch()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These methods have access to the state of the store via closure. &lt;/p&gt;
+&lt;p&gt;Here is a rudimentary example of a &quot;Redux&quot; store. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// library code
+function createStore(reducer) {
+  let state;
+  let listeners = [];
+
+  const getState = () =&gt; state;
+
+  const subscribe = listener =&gt; {
+    listeners.push(listener);
+    return () =&gt; {
+      listeners = listeners.filter(l =&gt; l !== listener);
+    };
+  };
+
+  const dispatch = action =&gt; {
+    state = reducer(state, action);
+    listeners.forEach(listener =&gt; listener()); // invoke all the listeners
+  };
+
+  return {
+    getState,
+    subscribe,
+    dispatch
+  };
+}
+
+// app code: dev writes reducer function
+function todos(state = [], action) {
+  switch (action.type) {
+    case &quot;ADD_TODO&quot;:
+      return state.concat([action.todo]); // is pure since concat returns a new array not a mutated array.
+    case &quot;REMOVE_TODO&quot;:
+      return state.filter(todo =&gt; todo.id !== action.id);
+    case &quot;TOGGLE_TODO&quot;:
+      return state.map(todo =&gt;
+        todo.id !== action.id ? todo : Object.assign({}, todo, { complete: !todo.complete })
+      );
+    default:
+      return state;
+  }
+}
+
+const store = createStore(todos);
+
+store.subscribe(() =&gt; {
+  console.log(&quot;Update state: &quot;, store.getState());
+});
+
+store.dispatch({
+  type: &quot;ADD_TODO&quot;,
+  todo: {
+    id: 1,
+    name: &quot;Learn Redux&quot;,
+    complete: false
+  }
+});
+
+// const unsubscibe = store.subscribe(() =&gt; {
+//   console.log(&quot;Update state again: &quot;, store.getState());
+// });
+
+// unsubscribe();
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[Decisions/Trade-Offs.]]></title><description><![CDATA[The Udacity React Nanodegree's first project is a simple application called "My Reads". Effectively, the app involves you adding and moving…]]></description><link>https://nicholaspretorius.github.io/til0121/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0121/</guid><pubDate>Fri, 04 Oct 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The Udacity React Nanodegree&apos;s first project is a simple application called &quot;My Reads&quot;. Effectively, the app involves you adding and moving books between &quot;bookshelves/lists&quot; based on whether you: &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&quot;Want to read&quot; the book. &lt;/li&gt;
 &lt;li&gt;Are &quot;Currently Reading&quot; a book.&lt;/li&gt;
