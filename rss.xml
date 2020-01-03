@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 02 Jan 2020 18:22:01 GMT</lastBuildDate><item><title><![CDATA[GitLab Lint CI.]]></title><description><![CDATA[Just a quick one today, when using GitLab CI/CD for managing your pipelines, be sure to validate your .gitlab-ci.yml file before committing…]]></description><link>https://nicholaspretorius.github.io/til0138/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0138/</guid><pubDate>Thu, 02 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Just a quick one today, when using GitLab CI/CD for managing your pipelines, be sure to validate your .gitlab-ci.yml file before committing it to your repo or pushing it to GitLab for building. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 03 Jan 2020 17:53:35 GMT</lastBuildDate><item><title><![CDATA[Python Hygiene.]]></title><description><![CDATA[In life, it is a good idea to wash regularly, brush your teeth, clean and iron your clothes etc.  In coding, it is much the same. Code…]]></description><link>https://nicholaspretorius.github.io/til0139/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0139/</guid><pubDate>Fri, 03 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In life, it is a good idea to wash regularly, brush your teeth, clean and iron your clothes etc. &lt;/p&gt;
+&lt;p&gt;In coding, it is much the same. Code hygiene is important! Fortunately, it is pretty easy to implement. In my own work, I have found a few things to go a long way in helping you keep your code and project clean! &lt;/p&gt;
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;p&gt;Firstly, dependencies. When working with Python, it is good practice to have your project run within a virtual environment or venv (Think of venv as a kind of package.json for Python). This ensure that you do not have global dependency issues with your project and keeps all your project dependencies in one place. In order to set this up for a new project, change into your project directory and run the following from the command line: &lt;/p&gt;
+&lt;p&gt;Depending on your version of python, run: &lt;code&gt;python -m venv env&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This will install the venv into your working directory. &lt;/p&gt;
+&lt;p&gt;To activate this, you run: &lt;code&gt;source env/bin/activate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In your .gitignore file, be sure to add env/ to since you do not want to include this folder in your repo. &lt;/p&gt;
+&lt;p&gt;Also, remember to ensure all your dependencies are listed in a &lt;code&gt;requirements.txt&lt;/code&gt; file. (See end for an example)&lt;/p&gt;
+&lt;h3&gt;Code Style&lt;/h3&gt;
+&lt;p&gt;Python has many code style guides, and one I have been using is &lt;a href=&quot;http://flake8.pycqa.org/en/latest/&quot;&gt;flake8&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Effectively, flake8 will ensure that your code is adhering to specific style guides. If you are working in VS Code, you can set this up in your working directory by creating a .vscode folder and adding a settings.json file to it. In that file add the following: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &quot;python.pythonPath&quot;: &quot;env/bin/python3.7&quot;,
+    &quot;python.linting.flake8Enabled&quot;: true,
+    &quot;python.linting.enabled&quot;: true,
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What this does, is sets your VS Code Python interpreter to the Python version in your venv (be sure to use your specific Python version). Setting both flake8 and linting to true will mean that VS Code will run your code through flake8 and will highlight any deviations from the flake8 rules. VS Code will prompt you to install flake8, if not, you can install via: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;python -m pip install flake8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If you need to manage specific flake8 rules, you can set them in a setup.cfg file as follows: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[flake8]
+max-line-length = 88
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also run flake8 directly from the command line via: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;flake8 path/to/code&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This will then return any deviations via messages in the command line. You can correct them as needed. (If correctly setup, VS Code should highlight these with little red squares in the sidebar indicating where in the file the problems appear)&lt;/p&gt;
+&lt;h3&gt;Formatting&lt;/h3&gt;
+&lt;p&gt;While code style is one thing, formatting is another. A very popular library for this in the Python world is &lt;a href=&quot;https://black.readthedocs.io/en/stable/&quot;&gt;black&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As always, you can install via: &lt;code&gt;pip install black&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You can also ensure that VS Code assists you in this by adding the relevant line to your settings.json file as follows: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&quot;python.formatting.provider&quot;: &quot;black&quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;From there, to run black you enter: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;To check for any problems only, run: &lt;code&gt;black project --check&lt;/code&gt; &lt;/li&gt;
+&lt;li&gt;To check what the suggested change will be, run: &lt;code&gt;black project --diff&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;To execute the changes run: &lt;code&gt;black project&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;While your preference may differ, I prefer to make all my commits to repo and then run flake8 and black afterwards. That way, I can double-check the changes from the Git diff viewer in VS Code before commiting them to repo. This helps me ensure I am aware of what the changes are separate of my actual code changes. &lt;/p&gt;
+&lt;h3&gt;Sorting dependencies&lt;/h3&gt;
+&lt;p&gt;Another item that may fall to personal prefernce, but I feel it is a good practice is to sort your imports/dependencies alphebetically. You can use &lt;a href=&quot;https://readthedocs.org/projects/isort/&quot;&gt;isort&lt;/a&gt; for this.&lt;/p&gt;
+&lt;p&gt;Similar to the other tools above, you can install via: &lt;code&gt;pip install isort&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To run the checks, do the following: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;To check for possible changes run: &lt;code&gt;isort path_to_code/*/*.py --check-only&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;To check what the suggested changes are, run: &lt;code&gt;isort path_to_code/*/*.py --diff&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;To make the changes, run: &lt;code&gt;isort path_to_code/*/*.py&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As before, I prefer to run isort after my other changes are already commited so I am sure what is being changed. &lt;/p&gt;
+&lt;h3&gt;Conflicts&lt;/h3&gt;
+&lt;p&gt;In the past, I have run into a conflict betweem black and isort in the way they manage certain rules. This creates a &quot;loop&quot; effect where black changes the import one way, then isort another. In a CI/CD environment this is not ideal to say the least. In any event, there is a solution! You can setup isort to &lt;em&gt;play nice&lt;/em&gt; with black by foind the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a &lt;code&gt;.isort.cfg&lt;/code&gt; file, and in it, add the following code below:&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Depending on your ruleset, this will vary - see this &lt;a href=&quot;https://github.com/timothycrosley/isort/issues/694&quot;&gt;issue&lt;/a&gt; for more detail&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;[settings]
+multi_line_output=3
+include_trailing_comma=True
+force_grid_wrap=0
+use_parentheses=True
+line_length=88
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ideally, all of this will be wrapped up into a nice Docker environment for development and release... but that is a topic for another time! In the meantime, I am sure your team mates will appreciate the extra care and attention you have paid to your Python hygiene! &lt;/p&gt;
+&lt;h3&gt;Requirements&lt;/h3&gt;
+&lt;p&gt;Make sure to add the following to your &lt;code&gt;requirements.txt&lt;/code&gt; file (check for relevant versions):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;black==19.3b0
+flake8===3.7.8
+isort==4.3.21
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[GitLab Lint CI.]]></title><description><![CDATA[Just a quick one today, when using GitLab CI/CD for managing your pipelines, be sure to validate your .gitlab-ci.yml file before committing…]]></description><link>https://nicholaspretorius.github.io/til0138/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0138/</guid><pubDate>Thu, 02 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Just a quick one today, when using GitLab CI/CD for managing your pipelines, be sure to validate your .gitlab-ci.yml file before committing it to your repo or pushing it to GitLab for building. &lt;/p&gt;
 &lt;p&gt;In the CI/CD left-hand menu section, under &quot;Pipinelines&quot; you will find a &quot;CI Lint&quot; button at the top right. Clicking it will take you to a page containing a large textarea in which to paste your entire .gitlab-ci.yml code. Once pasted, click the &quot;Validate&quot; button. &lt;/p&gt;
 &lt;p&gt;If you have any issues in your .yml file, you will see relevant validation messages and you can correct as needed. &lt;/p&gt;
 &lt;p&gt;Taking the time to check this when making pipeline changes, before pushing your code to GitLab, will definitely save you time and unnecessary build failures! &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Postman Cheat Sheet.]]></title><description><![CDATA[Welcome to 2020!  Postman  is an immensely useful tool for working with, documenting and testing APIs.  Collections Firstly, it is advisable…]]></description><link>https://nicholaspretorius.github.io/til0137/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0137/</guid><pubDate>Wed, 01 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Welcome to 2020! &lt;/p&gt;
