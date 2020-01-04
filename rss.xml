@@ -1,4 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 03 Jan 2020 17:53:35 GMT</lastBuildDate><item><title><![CDATA[Python Hygiene.]]></title><description><![CDATA[In life, it is a good idea to wash regularly, brush your teeth, clean and iron your clothes etc.  In coding, it is much the same. Code…]]></description><link>https://nicholaspretorius.github.io/til0139/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0139/</guid><pubDate>Fri, 03 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In life, it is a good idea to wash regularly, brush your teeth, clean and iron your clothes etc. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sat, 04 Jan 2020 17:33:47 GMT</lastBuildDate><item><title><![CDATA[Pytest Parametrize.]]></title><description><![CDATA[Pytest  is an intuitive and easy to use testing library for writing Python unit tests. One incredibly useful feature for streamlining your…]]></description><link>https://nicholaspretorius.github.io/til0140/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0140/</guid><pubDate>Sat, 04 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://docs.pytest.org/en/latest/&quot;&gt;Pytest&lt;/a&gt; is an intuitive and easy to use testing library for writing Python unit tests. One incredibly useful feature for streamlining your tests is the  &lt;a href=&quot;https://docs.pytest.org/en/latest/parametrize.html#pytest-mark-parametrize&quot;&gt;&lt;code&gt;@pytest.mark.parametrize&lt;/code&gt;&lt;/a&gt; decorator.&lt;/p&gt;
+&lt;p&gt;When you are writing tests, you will often need to write tests to cover several similar edge cases. For example, when parsing POST requests and validating their content. In such situations, you will often have several very similar but slightly different scenarios that you want to cover in your testing. It can be tedious to write out these very similar, but different tests. This is where parametrize steps in! &lt;/p&gt;
+&lt;p&gt;Lets say you have a test for a user registration route - &lt;code&gt;/auth/register&lt;/code&gt; for example. To thoroughly test such an endpoint, you may want to make several posts with minor changes in both the request body and in the response body to represent a range of possible error scenarios. In order to do so, you can do the following: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@pytest.mark.parametrize(
+    &quot;payload, message&quot;,
+    [
+        ({}, &quot;Invalid payload&quot;),
+        (
+            {&quot;email&quot;: &quot;test&quot;, &quot;password&quot;: &quot;password&quot;},
+            &quot;Please provide a valid email address&quot;,
+        ),
+        ({&quot;email&quot;: &quot;test@test.com&quot;}, &quot;Invalid payload, please provide a &apos;password&apos; field.&quot;),
+        ({&quot;password&quot;: &quot;password&quot;}, &quot;Invalid payload, please provide an &apos;email&apos; field.&quot;),
+        ({&quot;email_address&quot;: &quot;test@test.com&quot;}, &quot;Invalid payload, please provide an &apos;email&apos; field&quot;),
+        ({&quot;email&quot;: &quot;test@test.com&quot;, &quot;pass&quot;: &quot;password&quot;}, &quot;Invalid payload, please provide a &apos;password&apos; field&quot;),
+    ],
+)
+def test_user_registration_invalid_payload(test_app, test_db, payload, message):
+    # test_app, and test_db are pytest fixtures passed to the test
+    # payload and message are the &apos;parametrized&apos; variables used in the test
+    # recreate_db is a utility function to clear out the test db
+    recreate_db()
+    client = test_app.test_client()
+    res = client.post(
+        &quot;/auth/register&quot;,
+        data=json.dumps(payload),
+        content_type=&quot;application/json&quot;,
+    )
+    data = json.loads(res.data.decode())
+    assert res.status_code == 400
+    assert res.content_type == &quot;application/json&quot;
+    assert message in data[&quot;message&quot;]
+    assert not data[&quot;status&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the above test, instead of manually creating a test for each scenario, we can easily use parametrize to wrap up the post bodies and response messages in one easy to use place. From there, we just swop out the variables &lt;code&gt;payload&lt;/code&gt; and &lt;code&gt;message&lt;/code&gt; in the appropriate places in the test. That is to say, add &lt;code&gt;payload&lt;/code&gt; into the test_client&apos;s post data, and add &lt;code&gt;message&lt;/code&gt; into the relevant assert to check that the correct response message is returned for the scenario. &lt;/p&gt;
+&lt;p&gt;That&apos;s it! &lt;/p&gt;
+&lt;p&gt;Parametrize is a quick, easy to use and understand feature of Pytest. I encourage you to try it out! &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Python Hygiene.]]></title><description><![CDATA[In life, it is a good idea to wash regularly, brush your teeth, clean and iron your clothes etc.  In coding, it is much the same. Code…]]></description><link>https://nicholaspretorius.github.io/til0139/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0139/</guid><pubDate>Fri, 03 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In life, it is a good idea to wash regularly, brush your teeth, clean and iron your clothes etc. &lt;/p&gt;
 &lt;p&gt;In coding, it is much the same. Code hygiene is important! Fortunately, it is pretty easy to implement. In my own work, I have found a few things to go a long way in helping you keep your code and project clean! &lt;/p&gt;
 &lt;h3&gt;Dependencies&lt;/h3&gt;
 &lt;p&gt;Firstly, dependencies. When working with Python, it is good practice to have your project run within a virtual environment or venv (Think of venv as a kind of package.json for Python). This ensure that you do not have global dependency issues with your project and keeps all your project dependencies in one place. In order to set this up for a new project, change into your project directory and run the following from the command line: &lt;/p&gt;
