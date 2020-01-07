@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 06 Jan 2020 18:05:24 GMT</lastBuildDate><item><title><![CDATA[Useful Pytest Commands.]]></title><description><![CDATA[When working with  Pytest , it is tempting to keep re-using the same old commands. However, there are some really useful options you can…]]></description><link>https://nicholaspretorius.github.io/til0142/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0142/</guid><pubDate>Mon, 06 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;When working with &lt;a href=&quot;https://docs.pytest.org/en/latest/&quot;&gt;Pytest&lt;/a&gt;, it is tempting to keep re-using the same old commands. However, there are some really useful options you can pass in via the command line in order to change the set of tests being run and most likely speed up your workflow.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 07 Jan 2020 18:15:20 GMT</lastBuildDate><item><title><![CDATA[Using Decorators with Flask-RESTplus.]]></title><description><![CDATA[On a recent project, I have been using  Flask-RESTplus  for building and auto-documenting an API. Flask-RESTplus comes with  Swagger…]]></description><link>https://nicholaspretorius.github.io/til0143/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0143/</guid><pubDate>Tue, 07 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;On a recent project, I have been using &lt;a href=&quot;http://flask-restplus.readthedocs.io/&quot;&gt;Flask-RESTplus&lt;/a&gt; for building and auto-documenting an API. Flask-RESTplus comes with &lt;a href=&quot;https://swagger.io/&quot;&gt;Swagger&lt;/a&gt; integration out the box and works in a similar way to &lt;a href=&quot;https://flask-restful.readthedocs.io/en/latest/&quot;&gt;Flask-RESTful&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Unlike &lt;a href=&quot;https://www.palletsprojects.com/p/flask/&quot;&gt;Flask&lt;/a&gt;, which uses decorators with functions to describe API resources. Flask-RESTplus (and Flask-RESTful) use Python classes along with decorators to represent your API resources. &lt;/p&gt;
+&lt;p&gt;I had a decorator from a previous Flask project that I wanted to re-use in my Flask-RESTplus API and was curious about how easily the implementation would carry over. The decorator (@requires_auth) checks that the user is authorised in order to view the endpoint. &lt;/p&gt;
+&lt;p&gt;In Flask, this would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+@app.route(&apos;/protected-resource&apos;, methods=[&apos;GET&apos;])
+@requires_auth(&apos;get:protected-resources&apos;)
+def retrieve_protected(payload):
+    try:
+        ...
+    except AuthError:
+        abort(401)
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see, the route and methods are specified in the route decorator and the functionality is then defined in a function. &lt;/p&gt;
+&lt;p&gt;To achieve the same result in Flask-RESTplus, you would do the following with the route specified in the decorator and the class using functions to define the API methods: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+@api.route(&quot;/protected&quot;)
+class Protected(Resource):
+    @requires_auth(&quot;get:protected-resources&quot;)
+    def get(self, payload):
+        try:
+            ...
+        except AuthError:
+            return abort(401)
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I find this approach makes organising the routes a little more logical since you can group all the required API methods (GET, POST, DELETE, PUT etc) for a resource together in one class. &lt;/p&gt;
+&lt;p&gt;As you can see, the approaches are similar but slightly different. You still need to decorate the &lt;em&gt;function&lt;/em&gt; defining the route. &lt;/p&gt;
+&lt;p&gt;If you try to apply the decorator to the class, you will get an error saying: &lt;code&gt;AttributeError: &apos;function&apos; object has no attribute &apos;as_view&apos;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;There you have two ways of using the same decorator with Flask or Flask-RESTplus. &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Useful Pytest Commands.]]></title><description><![CDATA[When working with  Pytest , it is tempting to keep re-using the same old commands. However, there are some really useful options you can…]]></description><link>https://nicholaspretorius.github.io/til0142/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0142/</guid><pubDate>Mon, 06 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;When working with &lt;a href=&quot;https://docs.pytest.org/en/latest/&quot;&gt;Pytest&lt;/a&gt;, it is tempting to keep re-using the same old commands. However, there are some really useful options you can pass in via the command line in order to change the set of tests being run and most likely speed up your workflow.&lt;/p&gt;
 &lt;p&gt;Take for example, your basic &lt;code&gt;pytest&lt;/code&gt; command as a base: &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;pytest &quot;project/tests&quot;&lt;/code&gt;&lt;/li&gt;
