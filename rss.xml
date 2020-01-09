@@ -1,4 +1,55 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 08 Jan 2020 18:55:04 GMT</lastBuildDate><item><title><![CDATA[Working with Auth0.]]></title><description><![CDATA[Auth0 , in short, is "authentication-as-a-service". When building an app or service, you let Auth0 handle the user registration, login…]]></description><link>https://nicholaspretorius.github.io/til0144/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0144/</guid><pubDate>Wed, 08 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://auth0.com/&quot;&gt;Auth0&lt;/a&gt;, in short, is &quot;authentication-as-a-service&quot;. When building an app or service, you let Auth0 handle the user registration, login, password resets etc. Alongside Auth0 taking care of those nitty-gritties, Auth0 also lets you quite easily add social logins, RBAC (Role-Based-ACcess) and permission management amongst other features. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 09 Jan 2020 17:50:57 GMT</lastBuildDate><item><title><![CDATA[Retrieve Auth0 Auth Tokens for Testing.]]></title><description><![CDATA[To test API endpoints that sit behind Auth0 authorisation you can use your  Auth0  "Test Application" to generate auth tokens. This will…]]></description><link>https://nicholaspretorius.github.io/til0145/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0145/</guid><pubDate>Thu, 09 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;To test API endpoints that sit behind Auth0 authorisation you can use your &lt;a href=&quot;https://auth0.com/&quot;&gt;Auth0&lt;/a&gt; &quot;Test Application&quot; to generate auth tokens. This will enable you to run integration tests on your endpoints without having to make use of Auth0&apos;s &lt;code&gt;/authorize&lt;/code&gt; endpoint (which responds with a 302 redirect, making it tricky to test with). &lt;/p&gt;
+&lt;p&gt;To get started, you first need to ensure that you have the appropriate permissions and grant types setup for your API. You can do this by navigating to your &quot;Test Application&quot; in the Auth0 dashboard. Auth0 automatically creates a &quot;Test Application&quot; for regular Auth0 API applications. Once the appropriate test application is selected, click on the &quot;API&quot; tab, make sure the correct application is switched on. Next to that switch is a dropdown arrow, when clicking on it, you can then select the appropriate permissions needed. Save your changes. &lt;/p&gt;
+&lt;p&gt;Once that is done, on the &quot;Settings&quot; tab, click on the &quot;Show Advanced Settings&quot; at the bottom of the page, click on &lt;a href=&quot;https://auth0.com/docs/applications/reference/grant-types-available&quot;&gt;&quot;Grant Types&quot;&lt;/a&gt; and then select &quot;Client Credentials&quot; (You can leave the others unselected). Save your changes. &lt;/p&gt;
+&lt;h3&gt;Auth Token&lt;/h3&gt;
+&lt;p&gt;In order to make API calls from Python, I use the &lt;a href=&quot;https://requests.readthedocs.io/en/master/&quot;&gt;requests&lt;/a&gt; library. &lt;/p&gt;
+&lt;p&gt;Install as a dependency via: &lt;code&gt;pip install requests&lt;/code&gt; or update your &lt;code&gt;requirements.txt&lt;/code&gt; file and install as needed.&lt;/p&gt;
+&lt;p&gt;Keep in mind that with the &quot;client credentials&quot; auth flow, you make use of your Auth0 client secret. This value &lt;em&gt;must&lt;/em&gt; not be made public. As such, you should be passing this value in from environment variables into your app config so that they are not exposed at any point. &lt;/p&gt;
+&lt;p&gt;The Auth0 domain, client ID and audience are values that are made visible using Auth0&apos;s front-end authentication flows, so these are not critical to keep secret. However, in the example below, I have kept those in environment variables too for consistency. Also keep in mind that the client id for your &quot;Test Application&quot; will be different from the Client ID for your &quot;parent application&quot;.&lt;/p&gt;
+&lt;p&gt;You can setup your request in Pytest as follows: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import json
+import os
+import requests
+
+def get_auth0_access_token():
+
+    domain = os.environ.get(&quot;AUTH0_DOMAIN&quot;)
+
+    payload = {
+        &quot;client_id&quot;: os.environ.get(&quot;AUTH0_CLIENT_TEST_ID&quot;),
+        &quot;client_secret&quot;: os.environ.get(&quot;AUTH0_SECRET&quot;),
+        &quot;audience&quot;: os.environ.get(&quot;AUTH0_AUDIENCE&quot;),
+        &quot;grant_type&quot;: &quot;client_credentials&quot;,
+    }
+
+    headers = {&quot;content-type&quot;: &quot;application/json&quot;}
+
+    res = requests.post(
+        f&quot;https://{domain}/oauth/token&quot;, data=json.dumps(payload), headers=headers
+    )
+
+    access_token = res.json()[&quot;access_token&quot;]
+
+    return access_token
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You now have a function that will get you an access_token when needed in your tests. For example: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def test_sanity_check_success(test_app):
+    access_token = get_auth0_access_token()
+    client = test_app.test_client()
+
+    res = client.get(
+        &quot;/sanity&quot;,
+        headers={&quot;Authorization&quot;: f&quot;Bearer {access_token}&quot;},
+        content_type=&quot;application/json&quot;,
+    )
+
+    data = json.loads(res.data.decode())
+    assert res.status_code == 200
+    assert res.content_type == &quot;application/json&quot;
+    assert &quot;world!&quot; in data[&quot;hello&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;Please Note:&lt;/em&gt; It is &lt;strong&gt;imperative&lt;/strong&gt; that you keep your Auth0 Client Secret secret. As such, the above flow is &lt;em&gt;not&lt;/em&gt; suitable for front-end only, SPA auth flows! &lt;/p&gt;
+&lt;p&gt;Primarily, the &quot;client credential&quot; flow is for machine-to-machine authorisation - which unit/integration testing is. As such, do not use this in your SPA, or add this API call into your Postman collection with client secret populated.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Working with Auth0.]]></title><description><![CDATA[Auth0 , in short, is "authentication-as-a-service". When building an app or service, you let Auth0 handle the user registration, login…]]></description><link>https://nicholaspretorius.github.io/til0144/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0144/</guid><pubDate>Wed, 08 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://auth0.com/&quot;&gt;Auth0&lt;/a&gt;, in short, is &quot;authentication-as-a-service&quot;. When building an app or service, you let Auth0 handle the user registration, login, password resets etc. Alongside Auth0 taking care of those nitty-gritties, Auth0 also lets you quite easily add social logins, RBAC (Role-Based-ACcess) and permission management amongst other features. &lt;/p&gt;
 &lt;p&gt;Auth0 has a mountain of &lt;a href=&quot;https://auth0.com/docs&quot;&gt;documentation&lt;/a&gt; and a vast trove of &lt;a href=&quot;https://auth0.com/blog/&quot;&gt;tutorials&lt;/a&gt; available. The very first time used Nest.js (and Auth0) it was according to one of their &lt;a href=&quot;https://auth0.com/blog/full-stack-typescript-apps-part-1-developing-backend-apis-with-nestjs/&quot;&gt;tutorials&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;Auth0 are also the people behind the site &lt;a href=&quot;https://jwt.io/&quot;&gt;jwt.io&lt;/a&gt;, which is &lt;em&gt;incredibly&lt;/em&gt; useful for examining your JWTs (JSON Web Tokens) quickly and easily. &lt;/p&gt;
 &lt;p&gt;Despite all of this, while working with Auth0, it took me a while to get a handle on some of their documentation. My feeling is that, at times, they are quite verbose, and technical, but not &quot;plain spoken&quot;. To me, they don&apos;t call a spade a spade. This lead to some confusion in understanding how to implement their &quot;Auth0-risation&quot;. &lt;/p&gt;
