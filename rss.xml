@@ -1,4 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 09 Jan 2020 17:50:57 GMT</lastBuildDate><item><title><![CDATA[Retrieve Auth0 Auth Tokens for Testing.]]></title><description><![CDATA[To test API endpoints that sit behind Auth0 authorisation you can use your  Auth0  "Test Application" to generate auth tokens. This will…]]></description><link>https://nicholaspretorius.github.io/til0145/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0145/</guid><pubDate>Thu, 09 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;To test API endpoints that sit behind Auth0 authorisation you can use your &lt;a href=&quot;https://auth0.com/&quot;&gt;Auth0&lt;/a&gt; &quot;Test Application&quot; to generate auth tokens. This will enable you to run integration tests on your endpoints without having to make use of Auth0&apos;s &lt;code&gt;/authorize&lt;/code&gt; endpoint (which responds with a 302 redirect, making it tricky to test with). &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 10 Jan 2020 17:39:32 GMT</lastBuildDate><item><title><![CDATA[Docker Environment Variables.]]></title><description><![CDATA[When working with Docker, it can be a bit of a chore to have to pass your environment variables in from the command line. Fortunately Docker…]]></description><link>https://nicholaspretorius.github.io/til0146/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0146/</guid><pubDate>Fri, 10 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;When working with Docker, it can be a bit of a chore to have to pass your environment variables in from the command line. Fortunately Docker has built in support for environment variables coming from a .env file. As such, it is really easy to set your docker-compose.yml file up to make use of environment variables.&lt;/p&gt;
+&lt;p&gt;Unlike when working with .env files in Node.js or Python, you do not need to install anything or do any setup. Let&apos;s say you wanted to pass your bcrypt secret key and your Auth0 client secret into your app via environment variables - you could do this in your &lt;code&gt;.env&lt;/code&gt; file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SECRET_KEY=A98evJHg19as7kFMxzXoq9ByEnpnmdBTKIdBZTXPgzvYQtpvzy
+AUTH0_SECRET=lKtgyz0z6wceZ7kJYZjNeRY05dzlhNCqzItHIBbjj2HY7aFs136m5ptDm7wa30Rt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, in your &lt;code&gt;docker-compose.yml&lt;/code&gt; file, you would specify the environment variables in the format: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;VARIABLE_NAME=${ENV_FILE_VARIABLE_NAME}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;As such, you could do something like this (Note the &quot;environment&quot; section):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+services:
+  api:
+    build:
+      context: ./services/users
+      dockerfile: Dockerfile
+    entrypoint: [&quot;/usr/src/app/entrypoint.sh&quot;]
+    volumes:
+      - ./services/api:/usr/src/app
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=project.config.DevelopmentConfig
+      - SECRET_KEY=${SECRET_KEY}
+      - AUTH0_SECRET=${AUTH0_SECRET}
+    depends_on:
+      - db
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Simples!&lt;/p&gt;
+&lt;h3&gt;Alias for Docker Compose&lt;/h3&gt;
+&lt;p&gt;While we are on the topic of docker-compose. A very useful tip is to assign an alias in your &lt;code&gt;.bashrc&lt;/code&gt; file as follows: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;alias dc=&apos;docker-compose&apos;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Once saved, run: &lt;code&gt;source ~/.bashrc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This then enables you to us &lt;code&gt;dc&lt;/code&gt; in the command line instead of typing out the entire &lt;code&gt;docker-compose&lt;/code&gt; command! Very useful! &lt;/p&gt;
+&lt;p&gt;Hat Tip to &lt;a href=&quot;https://mherman.org/&quot;&gt;Michael Herman&lt;/a&gt; and his incredible &lt;a href=&quot;https://testdriven.io/&quot;&gt;Testdriven.io&lt;/a&gt; courses! &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Retrieve Auth0 Auth Tokens for Testing.]]></title><description><![CDATA[To test API endpoints that sit behind Auth0 authorisation you can use your  Auth0  "Test Application" to generate auth tokens. This will…]]></description><link>https://nicholaspretorius.github.io/til0145/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0145/</guid><pubDate>Thu, 09 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;To test API endpoints that sit behind Auth0 authorisation you can use your &lt;a href=&quot;https://auth0.com/&quot;&gt;Auth0&lt;/a&gt; &quot;Test Application&quot; to generate auth tokens. This will enable you to run integration tests on your endpoints without having to make use of Auth0&apos;s &lt;code&gt;/authorize&lt;/code&gt; endpoint (which responds with a 302 redirect, making it tricky to test with). &lt;/p&gt;
 &lt;p&gt;To get started, you first need to ensure that you have the appropriate permissions and grant types setup for your API. You can do this by navigating to your &quot;Test Application&quot; in the Auth0 dashboard. Auth0 automatically creates a &quot;Test Application&quot; for regular Auth0 API applications. Once the appropriate test application is selected, click on the &quot;API&quot; tab, make sure the correct application is switched on. Next to that switch is a dropdown arrow, when clicking on it, you can then select the appropriate permissions needed. Save your changes. &lt;/p&gt;
 &lt;p&gt;Once that is done, on the &quot;Settings&quot; tab, click on the &quot;Show Advanced Settings&quot; at the bottom of the page, click on &lt;a href=&quot;https://auth0.com/docs/applications/reference/grant-types-available&quot;&gt;&quot;Grant Types&quot;&lt;/a&gt; and then select &quot;Client Credentials&quot; (You can leave the others unselected). Save your changes. &lt;/p&gt;
 &lt;h3&gt;Auth Token&lt;/h3&gt;
