@@ -1,4 +1,74 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 12 Jan 2020 09:35:12 GMT</lastBuildDate><item><title><![CDATA[Wakeskating.]]></title><description><![CDATA[Something a little different for today. For the past year or so, I have been wakeskating more or less regularly (excluding winter). While I…]]></description><link>https://nicholaspretorius.github.io/til0148/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0148/</guid><pubDate>Sun, 12 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Something a little different for today. For the past year or so, I have been wakeskating more or less regularly (excluding winter). While I did not keep any records of my riding before March 2019, I started wakeskating somewhere around December 2018 again. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 13 Jan 2020 18:42:16 GMT</lastBuildDate><item><title><![CDATA[Flask-RESTplus Nested Models.]]></title><description><![CDATA[It is often useful to nest models when working with  Flask-RESTplus .  Let's say that you ultimately wanted your JSON output for a…]]></description><link>https://nicholaspretorius.github.io/til0149/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0149/</guid><pubDate>Mon, 13 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;It is often useful to nest models when working with &lt;a href=&quot;https://flask-restplus.readthedocs.io/en/stable/index.html&quot;&gt;Flask-RESTplus&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Let&apos;s say that you ultimately wanted your JSON output for a hypothetical restaurant to look as follows: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &quot;name&quot;: &quot;The Fancy Restaurant&quot;,
+    &quot;description&quot;: &quot;The best fusion cuisine in the world!&quot;,
+    &quot;location&quot;: {
+        &quot;lat&quot;: -99.999999,
+        &quot;lng&quot;: 99.999999
+    },
+    &quot;social&quot;: {
+        &quot;instagram&quot;: &quot;https://www.instagram.com/eatfancy&quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In order to do so, you could define your Flask-RESTplus models as follows.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note - these are not the same as your SQLAlchemy models&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+from flask_restplus import Namespace, Resource, fields
+...
+
+api = Namespace(&quot;restaurants&quot;, description=&quot;Restaurants resource&quot;)
+
+LOCATION = api.model(
+    &quot;LOCATION&quot;,
+    {
+        &quot;lat&quot;: fields.Float(
+            required=True,
+            description=&quot;The made-up latitude co-ordinates of the restaurant&quot;,
+            example=&quot;-99.999999&quot;,
+        ),
+        &quot;lng&quot;: fields.Float(
+            required=True,
+            description=&quot;The made-up longitude co-ordinates of the restaurant&quot;,
+            example=&quot;99.999999&quot;,
+        ),
+    },
+)
+
+
+SOCIAL = api.model(
+    &quot;SOCIAL&quot;,
+    {
+        &quot;instagram&quot;: fields.String(
+            required=False,
+            description=&quot;The official Instragram handle for the restaurant&quot;,
+        )
+    },
+)
+
+RESTAURANT = api.model(
+    &quot;RESTAURANT&quot;,
+    {
+        &quot;id&quot;: fields.String(
+            readOnly=True, description=&quot;The restaurant id&quot;, example=&quot;1&quot;
+        ),
+        &quot;name&quot;: fields.String(
+            required=True,
+            description=&quot;The name of the restaurant&quot;,
+            example=&quot;The Fancy Restaurant&quot;,
+        ),
+        &quot;description&quot;: fields.String(
+            required=True,
+            description=&quot;A short (less than 255 characters) description of the restaurant&quot;,
+            example=&quot;The best fusion cuisine in the world!&quot;,
+        ),
+        &quot;location&quot;: fields.Nested(LOCATION),
+        &quot;social&quot;: fields.Nested(SOCIAL),
+    },
+)
+...
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[Wakeskating.]]></title><description><![CDATA[Something a little different for today. For the past year or so, I have been wakeskating more or less regularly (excluding winter). While I…]]></description><link>https://nicholaspretorius.github.io/til0148/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0148/</guid><pubDate>Sun, 12 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Something a little different for today. For the past year or so, I have been wakeskating more or less regularly (excluding winter). While I did not keep any records of my riding before March 2019, I started wakeskating somewhere around December 2018 again. &lt;/p&gt;
 &lt;p&gt;By December 2018, It had been several years since I had been to the cablepark. Looking back, I have had 2x prior phases where I rode at least somewhat regularly for a few months or so at a time. Back in 2011, when I first learned to ride, I went through a phase where I wakeboarded a bit. I can&apos;t recall exact dates, but I rode for a few months, once or twice a week in the summer that year. Unfortunately, as winter came around, I got busy with other things and the habit fell away. &lt;/p&gt;
 &lt;p&gt;A year or two later, roundabout summer 2013/14, I went through another phase - this time I started wakeskating. If you are not aware, wakeboarding is more or less similar to snowboarding - you are riding a board on the water, but your feet are strapped into bindings onto the board. Wakeskating is basically a board, without bindings - more akin to a skateboard on the water. During this time, I probably rode once or twice a week for a few months that summer. Sadly, as winter came around, the habit fell away as I focused on other things. During that time, I had other priorities that took up my free time. Several months later however, I had a very brief moment when I started riding again, but took a bad fall where I seriously injured my ribs. That effectively ended my riding... until December 2018.&lt;/p&gt;
 &lt;p&gt;At that stage it had been more or less 3-4 years since I had last stepped on a board. As I was rediscovering the fun of riding and the excitement of progression, through early 2019 I was not riding that much. Maybe once or twice every week or two. Then in March 2019 things changed. &lt;/p&gt;
