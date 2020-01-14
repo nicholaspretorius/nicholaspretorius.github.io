@@ -1,4 +1,71 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 13 Jan 2020 18:42:16 GMT</lastBuildDate><item><title><![CDATA[Flask-RESTplus Nested Models.]]></title><description><![CDATA[It is often useful to nest models when working with  Flask-RESTplus .  Let's say that you ultimately wanted your JSON output for a…]]></description><link>https://nicholaspretorius.github.io/til0149/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0149/</guid><pubDate>Mon, 13 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;It is often useful to nest models when working with &lt;a href=&quot;https://flask-restplus.readthedocs.io/en/stable/index.html&quot;&gt;Flask-RESTplus&lt;/a&gt;. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 14 Jan 2020 18:06:51 GMT</lastBuildDate><item><title><![CDATA[Flask-RESTplus Authorisation Headers.]]></title><description><![CDATA[Flask-RESTplus  comes with built-in Swagger integration. It is however, not entirely obvious how to specify what Authorisation is required…]]></description><link>https://nicholaspretorius.github.io/til0150/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0150/</guid><pubDate>Tue, 14 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://flask-restplus.readthedocs.io/en/stable/index.html&quot;&gt;Flask-RESTplus&lt;/a&gt; comes with built-in Swagger integration. It is however, not entirely obvious how to specify what Authorisation is required via the Swagger UI (at least it was not to me). &lt;/p&gt;
+&lt;p&gt;If we assume that we have already setup our routes, Swagger and authorisation logic setup. What we now want to do is represent in the Swagger UI which routes requires authorisation via a JSON Web Token (JWT) passed in an Authorisation header. This will enable the user to make the necessary request via the Swagger UI. In order to set this up, you would do as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+
+RESTAURANT = api.model(...)
+
+...
+
+# api is our namespace
+
+...
+
+parser = api.parser()
+parser.add_argument(&quot;Authorisation&quot;, location=&quot;headers&quot;, help=&quot;Bearer token required&quot;)
+
+...
+
+@api.route(&quot;/&quot;)
+class RestaurantList(Resource):
+    def get(self):
+        &quot;&quot;&quot;List all restaurants&quot;&quot;&quot;
+        return get_restaurants(), 200
+
+    # combine parser, expected model and validation flag 
+    # to specify which extra arguments are required, the 
+    # shape of expected data and whether to validate that data
+    
+    @api.expect(parser, RESTAURANT, validate=True)  
+    
+    # expected responses
+    
+    @api.response(201, &quot;Restaurant was added!&quot;)
+    @api.response(400, &quot;Invalid payload&quot;)
+    @api.response(401, &quot;Unauthorised&quot;)
+    @api.response(403, &quot;Forbidden&quot;)
+    @requires_auth(&quot;create:restaurant&quot;)
+    def post(self, payload):
+        &quot;&quot;&quot;Create Restaurant&quot;&quot;&quot;
+        
+        ...
+
+    ...
+
+@api.route(&quot;/&amp;#x3C;int:restaurant_id&gt;&quot;)
+class Restaurants(Resource):
+    
+    ...
+
+    # Unlike this post route above, in this case, 
+    # we only pass an id to the delete route and 
+    # do not require a data payload. However, we 
+    # still require the authorisation header by 
+    # which to authorise access to the route. Note
+    # that in both case, &quot;payload&quot; must be passed
+    # as the 2nd parameter after self and before 
+    # the id, if one is used.
+    
+    @api.expect(parser)
+    @requires_auth(&quot;delete:restaurant)
+    def delete(self, payload, wakepark_id):
+        &quot;&quot;&quot;Deletes a single restaurant&quot;&quot;&quot;
+        
+        ...
+    
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the above code, once your imports, namespace and models are setup, you need to define a parser and then use &lt;a href=&quot;https://flask-restplus.readthedocs.io/en/stable/parsing.html&quot;&gt;add_argument&lt;/a&gt; to add the field necessary(&quot;Authorisation&quot;) along the location(&quot;headers&quot;) in which the field should appear as well as some &quot;help&quot; text to describe it. &lt;/p&gt;
+&lt;p&gt;You then add your parser, along with your model and your validate flag in the @expect decorator. This will add the necessary Authorisation header field to the Swagger UI and will enable you to add your JSON Web Token to the request when making a POST request via the Swagger UI. &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Flask-RESTplus Nested Models.]]></title><description><![CDATA[It is often useful to nest models when working with  Flask-RESTplus .  Let's say that you ultimately wanted your JSON output for a…]]></description><link>https://nicholaspretorius.github.io/til0149/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0149/</guid><pubDate>Mon, 13 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;It is often useful to nest models when working with &lt;a href=&quot;https://flask-restplus.readthedocs.io/en/stable/index.html&quot;&gt;Flask-RESTplus&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;Let&apos;s say that you ultimately wanted your JSON output for a hypothetical restaurant to look as follows: &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;{
     &quot;name&quot;: &quot;The Fancy Restaurant&quot;,
