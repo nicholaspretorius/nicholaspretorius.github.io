@@ -1,4 +1,112 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sat, 18 Jan 2020 18:13:07 GMT</lastBuildDate><item><title><![CDATA[WordPress, Docker and the REST API.]]></title><description><![CDATA[Brad Traversy  has a great introductory video to running  WordPress, MySQL and phpMyAdmin within a Docker  container. In short, he shows you…]]></description><link>https://nicholaspretorius.github.io/til0153/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0153/</guid><pubDate>Sat, 18 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://www.traversymedia.com/&quot;&gt;Brad Traversy&lt;/a&gt; has a great introductory video to running &lt;a href=&quot;https://www.youtube.com/watch?v=pYhLEV-sRpY&quot;&gt;WordPress, MySQL and phpMyAdmin within a Docker&lt;/a&gt; container. In short, he shows you how to quickly setup a docker-compose file to spin up the official Docker images for WordPress, MySQL and phpMyAdmin. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 19 Jan 2020 17:58:28 GMT</lastBuildDate><item><title><![CDATA[Running WordPress and React with Docker.]]></title><description><![CDATA[Following on from yesterday's post, in addtion to getting WordPress, MySQL and phpMyAdmin running from one  docker-compose up  command, I…]]></description><link>https://nicholaspretorius.github.io/til0154/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0154/</guid><pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Following on from yesterday&apos;s post, in addtion to getting WordPress, MySQL and phpMyAdmin running from one &lt;code&gt;docker-compose up&lt;/code&gt; command, I wanted to run the React client accessing the WP REST API from that same command.&lt;/p&gt;
+&lt;p&gt;In order to do so, I created a &lt;code&gt;Dockerfile&lt;/code&gt; in the /client folder (the /client folder was created via the &lt;code&gt;npx create-react-app client&lt;/code&gt; command).  This added the /client folder into the root directory of the project. I placed the Dockerfile within that. &lt;/p&gt;
+&lt;p&gt;The Dockerfile looks like this: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FROM node:13.6.0-alpine
+
+# set working directory
+WORKDIR /var/www/html/client
+
+# add `/var/www/html/node_modules/.bin` to $PATH
+ENV PATH /var/www/html/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /var/www/html/client/package.json
+COPY package-lock.json /var/www/html/client/package-lock.json
+RUN npm ci
+
+# start app
+CMD [&quot;npm&quot;, &quot;start&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Furthermore, in the &lt;code&gt;docker-compose.yml&lt;/code&gt; file from yesterday, you add a new service called &apos;client&apos;. You will notice that the I have added a React environment variable named &lt;code&gt;REACT_APP_WP_API&lt;/code&gt;. This is set to &lt;code&gt;http://localhost:8080&lt;/code&gt; because that is where the WordPress site is running from. As a result, in order to access the url with something like &lt;a href=&quot;https://github.com/axios/axios&quot;&gt;Axios&lt;/a&gt;, you will need to prefix your urls with the appropriate environment variable. &lt;/p&gt;
+&lt;p&gt;For example (Note the use of &lt;code&gt;process.env.REACT_APP_WP_API&lt;/code&gt;): &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;const res = await axios.get(`${process.env.REACT_APP_WP_API}/wp-json/wp/v2/posts`);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The reason I am no longer using the &quot;proxy&quot; field within React&apos;s &lt;code&gt;package.json&lt;/code&gt; file is because, within the container running React, there is nothing running on localhost:8080. As such, it is set in the running React app so that it refers to port 8080 on the machine running the containers&apos; localhost. The React client will be found on &lt;code&gt;http://localhost:3000&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Granted, this approach is more verbose, than using &quot;proxy&quot; since you need to prefix all the urls with the environment variable. &lt;/p&gt;
+&lt;p&gt;Add the following service named &apos;client&apos; to the &lt;code&gt;docker-compose.yml&lt;/code&gt; file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;client:
+    depends_on:
+      - wordpress
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - &quot;./client:/var/www/html/client&quot;
+      - &quot;/var/www/html/node_modules&quot;
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_WP_API=http://localhost:8080
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As a result, the entire &lt;code&gt;docker-compose.yml&lt;/code&gt; will looks as follows: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;version: &quot;3&quot;
+
+services:
+  # database
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - wpsite
+  # phpMyAdmin
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - &quot;8081:80&quot;
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+      - wpsite
+  # WordPress
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      # 8000 on localhost, to 80 on container
+      - &quot;8080:80&quot;
+    restart: always
+    # ./ on local machine maps to /var/www/html on Apache, which is where WP files are stored
+    volumes: [&quot;./:/var/www/html&quot;]
+    environment:
+      # &apos;db&apos; is service above. 3306 is default port on MySQL
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+    networks:
+      - wpsite
+  client:
+    depends_on:
+      - wordpress
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - &quot;./client:/var/www/html/client&quot;
+      - &quot;/var/www/html/node_modules&quot;
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_WP_API=http://localhost:8080
+networks:
+  wpsite:
+volumes:
+  db_data:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With this setup, you can now setup and run and entire working WordPress installation with MySQL, phpMyAdmin and a running React client with one &lt;code&gt;docker-compose up&lt;/code&gt; command! &lt;/p&gt;</content:encoded></item><item><title><![CDATA[WordPress, Docker and the REST API.]]></title><description><![CDATA[Brad Traversy  has a great introductory video to running  WordPress, MySQL and phpMyAdmin within a Docker  container. In short, he shows you…]]></description><link>https://nicholaspretorius.github.io/til0153/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0153/</guid><pubDate>Sat, 18 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://www.traversymedia.com/&quot;&gt;Brad Traversy&lt;/a&gt; has a great introductory video to running &lt;a href=&quot;https://www.youtube.com/watch?v=pYhLEV-sRpY&quot;&gt;WordPress, MySQL and phpMyAdmin within a Docker&lt;/a&gt; container. In short, he shows you how to quickly setup a docker-compose file to spin up the official Docker images for WordPress, MySQL and phpMyAdmin. &lt;/p&gt;
 &lt;p&gt;To my mind, the payoff for using Docker for WordPress is that, once you have Docker setup on your machine, the famous &lt;a href=&quot;https://wordpress.org/support/article/how-to-install-wordpress/&quot;&gt;5-minute WordPress install&lt;/a&gt; is now down to as long as it takes the &lt;code&gt;docker-compose up&lt;/code&gt; command to run! &lt;/p&gt;
 &lt;p&gt;No more downloading and unzipping folders, no manual installation of WAMP or XAMPP or any of the rest of it... You just run run one command and boom, you are ready to roll! &lt;/p&gt;
 &lt;p&gt;From there, I advise you to take a look at Brad&apos;s follow-up video about using the &lt;a href=&quot;https://www.youtube.com/watch?v=fFNXWinbgro&quot;&gt;WordPress REST API with React&lt;/a&gt;. In it, he runs you through the basics of setting up the WP REST API and then shows you how to setup and use JWT Authentication, Custom Post Types and Custom Fields to customise your data. From there, he builds some very bare bones React components to illustrate usage with Axios and React-Router-Dom. The fantastic thing about this is that, if you have a little bit of WordPress knowledge, and are accustomed to working with React (or Angular, Vue) you will feel right at home in starting to build-out a front-end to use WordPress as a headless CMS. &lt;/p&gt;
