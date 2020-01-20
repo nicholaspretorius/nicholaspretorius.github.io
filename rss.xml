@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 19 Jan 2020 18:56:27 GMT</lastBuildDate><item><title><![CDATA[Running WordPress and React with Docker.]]></title><description><![CDATA[Following on from yesterday's post, in addtion to getting WordPress, MySQL and phpMyAdmin running from one  docker-compose up  command, I…]]></description><link>https://nicholaspretorius.github.io/til0154/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0154/</guid><pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Following on from yesterday&apos;s post, in addtion to getting WordPress, MySQL and phpMyAdmin running from one &lt;code&gt;docker-compose up&lt;/code&gt; command, I wanted to run the React client accessing the WP REST API from that same command.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 20 Jan 2020 18:36:07 GMT</lastBuildDate><item><title><![CDATA[An Example of Mocking a Services and a Module with Jest.]]></title><description><![CDATA[If you have a service or module that you need to mock for tests, you can easily do this with  Jest .  Mocking a Service In order to mock one…]]></description><link>https://nicholaspretorius.github.io/til0155/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0155/</guid><pubDate>Mon, 20 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;If you have a service or module that you need to mock for tests, you can easily do this with &lt;a href=&quot;https://jestjs.io/&quot;&gt;Jest&lt;/a&gt;. &lt;/p&gt;
+&lt;h3&gt;Mocking a Service&lt;/h3&gt;
+&lt;p&gt;In order to mock one of your own services, to set it up, you can do the following in your test file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import serviceToBeMocked from &quot;./path/to/service&quot;;
+
+...
+
+jest.mock(&quot;./path/to/service&quot;, () =&gt; ({
+    functionToBeMocked: jest.fn()
+}));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From there, you can mock the implementation where you need it, for example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;describe(&quot;renders&quot;, () =&gt; {
+    
+    ...
+    
+    serviceToBeMocked.functionToBeMocked.mockImplementation(() =&gt; {
+        return yourMockData;
+    })
+    
+    ...
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Mocking a Module&lt;/h3&gt;
+&lt;p&gt;If you need to mock a module used in your application, you can also use Jest for this. If you needed to mock Axios for example, you can do the following: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+
+import axios from &quot;axios&quot;;
+
+jest.mock(&quot;axios&quot;);
+
+axios.mockImplementationOnce(() =&gt; 
+    Promise.resolve({
+        data: {
+            id: 1,
+            name: &quot;Joe Soap&quot;,
+            ...
+        }
+    })
+);
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When it comes time to make your assertions, can do the following: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;it(&quot;does something&quot;, async () =&gt; {
+    
+    ...
+
+    await wait(() =&gt; {
+        expect(axios).toHaveBeenCalledTimes(1);
+    });
+
+    ...
+
+});
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[Running WordPress and React with Docker.]]></title><description><![CDATA[Following on from yesterday's post, in addtion to getting WordPress, MySQL and phpMyAdmin running from one  docker-compose up  command, I…]]></description><link>https://nicholaspretorius.github.io/til0154/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0154/</guid><pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Following on from yesterday&apos;s post, in addtion to getting WordPress, MySQL and phpMyAdmin running from one &lt;code&gt;docker-compose up&lt;/code&gt; command, I wanted to run the React client accessing the WP REST API from that same command.&lt;/p&gt;
 &lt;p&gt;In order to do so, I created a &lt;code&gt;Dockerfile&lt;/code&gt; in the /client folder (the /client folder was created via the &lt;code&gt;npx create-react-app client&lt;/code&gt; command).  This added the /client folder into the root directory of the project. I placed the Dockerfile within that. &lt;/p&gt;
 &lt;p&gt;The Dockerfile looks like this: &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;FROM node:13.6.0-alpine
