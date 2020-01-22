@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 21 Jan 2020 18:45:33 GMT</lastBuildDate><item><title><![CDATA[Perch.]]></title><description><![CDATA[If you are in the Johannesburg area and have the benefit or flexibility of working from a distributed or remote office, I highly recommend…]]></description><link>https://nicholaspretorius.github.io/til0156/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0156/</guid><pubDate>Tue, 21 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;If you are in the Johannesburg area and have the benefit or flexibility of working from a distributed or remote office, I highly recommend making a visit to &lt;a href=&quot;https://perchoffices.co.za/&quot;&gt;Perch&lt;/a&gt;. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 22 Jan 2020 20:09:54 GMT</lastBuildDate><item><title><![CDATA[Running Cypress in Docker.]]></title><description><![CDATA[Cypress  is a fantastic tool for running end-to-end test on your applications. If you are running your app through Docker, you can set…]]></description><link>https://nicholaspretorius.github.io/til0157/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0157/</guid><pubDate>Wed, 22 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://www.cypress.io/&quot;&gt;Cypress&lt;/a&gt; is a fantastic tool for running end-to-end test on your applications. If you are running your app through Docker, you can set Cypress up for this too. &lt;/p&gt;
+&lt;p&gt;In your front-end client root directory, you can create a file named &lt;code&gt;Dockerfile-cypress&lt;/code&gt;. This will contain: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FROM cypress/browsers:chrome65-ff57
+
+# set working directory
+WORKDIR /usr/src/app
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+# install cypress
+RUN npm install cypress
+
+# copy cypress files and folders
+COPY cypress /usr/src/app/cypress
+COPY cypress.json /usr/src/app/cypress.json
+
+# confirm the cypress install
+RUN ./node_modules/.bin/cypress verify
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, from your &lt;code&gt;docker-compose.yml&lt;/code&gt; file, you can add a stage for Cypress that depends on your front-end stage, for example: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cypress:
+    build:
+      context: ./path/to/frontend
+      dockerfile: Dockerfile-cypress
+    depends_on:
+      - name_of_frontend_service
+    network_mode: &quot;host&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From there, you can then run Cypress via docker-compose by: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker-compose run cypress ./node_modules/.bin/cypress run&lt;/code&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Perch.]]></title><description><![CDATA[If you are in the Johannesburg area and have the benefit or flexibility of working from a distributed or remote office, I highly recommend…]]></description><link>https://nicholaspretorius.github.io/til0156/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0156/</guid><pubDate>Tue, 21 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;If you are in the Johannesburg area and have the benefit or flexibility of working from a distributed or remote office, I highly recommend making a visit to &lt;a href=&quot;https://perchoffices.co.za/&quot;&gt;Perch&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;Perch is right across the road from Rosebank shopping mall, next to the Tyrwhitt Hotel. Perch is located inside an office building shared with several other businesses and is right next to the Rosebank Mall parking. If have a car and park there, it is a very short walk from there or a slightly longer walk from the Gautrain station (still under 500m). &lt;/p&gt;
 &lt;p&gt;From the second floor of the building, the Perch offices take up two floors. The lower floor is the more flexible, open spaces where the day, or occassional visitors are located. The upper floor is mostly boardrooms and the longer term co-workers who get dedicated desks for a month or more. &lt;/p&gt;
 &lt;p&gt;When you are arrive, you will check-in and be given a tour of the premises if it is your first visit. There is a coffee shop in the office, boardrooms, &quot;phone booth&quot;-type spaces for making calls and there are plenty of desks, chairs and spaces to choose from in the nicely appointed and furnished space. &lt;/p&gt;
