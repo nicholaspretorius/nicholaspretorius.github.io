@@ -1,4 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 21 Feb 2020 11:34:11 GMT</lastBuildDate><item><title><![CDATA[The React Testing Ecosystem.]]></title><description><![CDATA[I  answered a question  on the Udacity Knowledge platform about what to use when testing React. I have reposted it below for reference…]]></description><link>https://nicholaspretorius.github.io/til0159/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0159/</guid><pubDate>Sat, 25 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I &lt;a href=&quot;https://knowledge.udacity.com/questions/66372&quot;&gt;answered a question&lt;/a&gt; on the Udacity Knowledge platform about what to use when testing React. I have reposted it below for reference: &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Nicholas Pretorius]]></title><description><![CDATA[Rudimentary 'Today I Learned' log.]]></description><link>https://nicholaspretorius.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 21 Feb 2020 11:46:20 GMT</lastBuildDate><item><title><![CDATA[AWS Elastic Beanstalk (EB) Commands.]]></title><description><![CDATA[Below are some useful commands when working with AWS Elasic Beanstalk (EB): eb init --profile profile_name_here  Initialises the EB…]]></description><link>https://nicholaspretorius.github.io/til0160/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0160/</guid><pubDate>Fri, 21 Feb 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Below are some useful commands when working with AWS Elasic Beanstalk (EB):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;eb init --profile profile_name_here&lt;/code&gt; Initialises the EB environment (will create a .elasticbeanstalk folder with a config.yml file within it)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;eb list --all&lt;/code&gt; Lists all eb environments if any&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;eb create --profile profile_name_here&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;eb deploy --profile profile_name_here&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;eb terminate --all&lt;/code&gt; to terminate Elastic Beanstalk environments&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;eb abort&lt;/code&gt; to cancel an active eb operation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Your AWS credentials file should contain something like the following: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[profile_name_here]
+aws_access_key_id=keygoeshere
+aws_secret_access_key=tokengoeshere
+aws_session_token=tokengoeshere
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[The React Testing Ecosystem.]]></title><description><![CDATA[I  answered a question  on the Udacity Knowledge platform about what to use when testing React. I have reposted it below for reference…]]></description><link>https://nicholaspretorius.github.io/til0159/</link><guid isPermaLink="false">https://nicholaspretorius.github.io/til0159/</guid><pubDate>Sat, 25 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I &lt;a href=&quot;https://knowledge.udacity.com/questions/66372&quot;&gt;answered a question&lt;/a&gt; on the Udacity Knowledge platform about what to use when testing React. I have reposted it below for reference: &lt;/p&gt;
 &lt;h3&gt;Question&lt;/h3&gt;
 &lt;p&gt;&quot;Hello,&lt;/p&gt;
 &lt;p&gt;I&apos;ve just finished my first project &quot;MyReads&quot;.&lt;/p&gt;
